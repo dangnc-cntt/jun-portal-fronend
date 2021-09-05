@@ -1,0 +1,59 @@
+
+#sidebar{
+  min-height: 855px !important;
+  .header_left{
+    width: 100%;
+    height: 60px;
+    padding: 0 10px;
+    border-bottom: 1px solid rgba(129, 125, 161, 0.17);
+    span{
+      color: white;
+      font-size: 18px;
+    }
+
+  }
+  .user, .admin{
+    border-bottom: 1px solid rgba(129, 125, 161, 0.17);
+    .title{
+      padding: 0 10px;
+      height: 30px;
+      border-bottom: 1px solid rgba(129, 125, 161, 0.17);
+      span{
+        font-size: 14px;
+        color: white;
+      }
+    }
+  }
+  .profile-wrapper{
+    .avatar{
+      width: 65px;
+      height: 65px;
+      font-size: 18px;
+      color: #3e3c4f;
+      border: none;
+      background-color: white;
+    }
+  }
+
+  &.sidebar {
+    .nav.sub-menu {
+      padding: 0.25rem 0 0.5rem 1.75rem;
+    }
+
+    .nav.sub-menu .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .nav-link {
+        flex: 1;
+      }
+
+      &:before {
+        position: static;
+        margin-top: 0;
+        display: block;
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+version: "3"
+services:
+  api:
+    image: "${IMAGE_BUILD}"
+    ports:
+      - 9005:9005
+    environment:
+      - PORT=9005
+      - API_DOMAIN=https://dev.api.mtg-mm.com
+      - GA=
+      - SENTRY_DSN=
+      - SENTRY_ENVIRONMENT=
+      - GTM=
+      - FIREBASE_CONFIG=
+      - FIREBASE_KEY_PUBLIC=
+      - ROBOTS_FILE_NAME=dev_robots.txt
