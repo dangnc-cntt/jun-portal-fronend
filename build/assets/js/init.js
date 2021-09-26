@@ -1,5 +1,5 @@
 window.PORT = 9000;
-window.API_DOMAIN = "https://dev.api.portal.loyalty.wiinvent.tv";
+window.API_DOMAIN = "http://127.0.0.1:8092";
 window.GA = "";
 window.SENTRY_DSN = "";
 window.SENTRY_ENVIRONMENT = "";

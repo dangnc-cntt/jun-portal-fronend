@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {number_format} from "../utils/Utils";
 import {observer} from "mobx-react";
-import {ITotalStatistic} from "../../modules/dashboard/DashboardStore";
 
 
 @observer
-class Statistics extends Component<{ data: ITotalStatistic }, any> {
+class Statistics extends Component<{ data: any }, any> {
 
     render() {
         const item = this.props.data;
