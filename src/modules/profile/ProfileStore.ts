@@ -10,8 +10,12 @@ export interface IProfile {
 }
 
 export interface IEditProfile {
-    displayName: string,
+    fullName: string,
     role: string,
+    phone: string,
+    email: string,
+    gender: string,
+    address: string,
     userName: string,
 }
 
@@ -34,8 +38,12 @@ class ProfileStore {
     @observable public isOpen: boolean = true;
     @observable public activeTab: string = TabActive.Account;
     @observable public editProfile: IEditProfile = {
-        displayName: "",
+        fullName: "",
         role: "",
+        address: '',
+        email: '',
+        gender: '',
+        phone: '',
         userName: "",
     };
     @observable public userPassword: IEditPassword = {
@@ -48,15 +56,15 @@ class ProfileStore {
     }
 
     async updated() {
-        let {userName, displayName, role} = this.editProfile;
+        let {userName, fullName, role} = this.editProfile;
         if (!userName) {
             toastUtil.warning('Please enter username.');
-        } else if (!displayName) {
-            toastUtil.warning('Please enter display name.');
+        } else if (!fullName) {
+            toastUtil.warning('Please enter full name.');
         } else {
-            const data: IEditProfile = {
+            const data: any = {
                 userName: userName,
-                displayName: displayName,
+                fullName: fullName,
                 role: role,
             }
             const res = await userService.updateUser(this.getProfile?.id, data);
@@ -72,7 +80,7 @@ class ProfileStore {
 
     async changePassword(e: any) {
         e.preventDefault();
-        let {userName, displayName, role} = this.editProfile;
+        let {userName, fullName, role} = this.editProfile;
         let {password, confirmPassword} = this.userPassword;
         if (!password) {
             toastUtil.warning('Please enter password.');
@@ -85,7 +93,7 @@ class ProfileStore {
         } else {
             const data: any = {
                 userName: userName,
-                displayName: displayName,
+                fullName: fullName,
                 role: role,
                 confirmedPassword: confirmPassword,
                 password: password,

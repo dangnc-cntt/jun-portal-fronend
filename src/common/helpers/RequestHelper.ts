@@ -40,7 +40,7 @@ export async function getRequest(path: string): Promise<IApiResponse> {
         });
     }
 
-    return await axios.get("http://127.0.0.1:8092" + path, {headers: newHeaders})
+    return await axios.get(Constants.API_URL + path, {headers: newHeaders})
         .then(
             (response) => {
 
@@ -99,7 +99,7 @@ export function apiCall(path: string, _method: Method = "POST", _params: object)
             data: JSON.stringify(_params),
             headers: newHeaders,
             method: _method,
-            url: "http://127.0.0.1:8092" + path
+            url: Constants.API_URL + path
         })
             .then(function (response) {
                 resolve({
@@ -165,7 +165,7 @@ export async function exportData(path: string, name: string): Promise<any> {
         });
     }
 
-    return await axios.get("http://127.0.0.1:8092" + path, {headers: newHeaders, responseType: "blob"})
+    return await axios.get(Constants.API_URL + path, {headers: newHeaders, responseType: "blob"})
         .then(
             (response) => {
                 const url = window.URL.createObjectURL(new Blob([response.data]))

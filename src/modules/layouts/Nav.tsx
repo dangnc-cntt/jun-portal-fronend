@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { css } from '@emotion/core';
 import {profileStore} from "../profile/ProfileStore";
 import StorageService from "../../common/service/StorageService";
-import Logo from "../../asset/images/logo-v1.png"
 
 @observer
 class Nav extends Component {
@@ -14,8 +13,8 @@ class Nav extends Component {
             return (
                 <nav css={css_nav} className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
                     <div className="navbar-brand-wrapper d-flex align-items-center" css={css_left}>
-                        <Link to="/" className="navbar-brand brand-logo">
-                            <img css={cssLogo} src={Logo} alt=""/>
+                        <Link to="/" className="navbar-brand text-center brand-logo ml-5">
+                            <h3><strong>Jun Shop</strong></h3>
                         </Link>
                     </div>
                     <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -40,7 +39,7 @@ class Nav extends Component {
                                     {profileStore.getProfile?.avatarUrl ?
                                         <img src={profileStore.getProfile?.avatarUrl} alt="profile"/> :
                                         <button type="button" css={logoProfile} className="btn btn-info btn-rounded btn-icon">
-                                            {profileStore.getProfile?.displayName.slice(0, 1).toUpperCase()}
+                                            {profileStore.getProfile?.fullName.slice(0, 1).toUpperCase()}
                                         </button>
                                     }
                                 </a>

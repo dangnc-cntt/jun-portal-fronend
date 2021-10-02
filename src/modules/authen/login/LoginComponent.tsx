@@ -7,7 +7,7 @@ import {loginStore} from "./LoginStore";
 import {Redirect} from "react-router-dom";
 import {css} from "@emotion/core";
 import {profileStore} from "../../profile/ProfileStore";
-
+import {UploadImage} from "../../../common/firebase/uploadImages";
 
 const css_bg = css`
   background-color: white;
@@ -16,6 +16,7 @@ const css_bg = css`
 
 @observer
 class LoginComponent extends Component {
+
 
     render() {
         if (profileStore.getProfile) {
@@ -87,7 +88,6 @@ class LoginComponent extends Component {
                         </div>
                     </div>
                 </div>
-
             </div>
         );
     }

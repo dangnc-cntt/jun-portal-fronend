@@ -101,8 +101,8 @@ class Profile extends Component<any, any> {
                                         <div className="form-group">
                                             <label>Display Name</label>
                                             <input type="text" 
-                                                defaultValue={profileStore.editProfile.displayName}
-                                                onChange={(e: any) => profileStore.editProfile.displayName = e.currentTarget.value}
+                                                defaultValue={profileStore.editProfile.fullName}
+                                                onChange={(e: any) => profileStore.editProfile.fullName = e.currentTarget.value}
                                                 className='form-control form-control-lg'
                                             />
                                         </div>

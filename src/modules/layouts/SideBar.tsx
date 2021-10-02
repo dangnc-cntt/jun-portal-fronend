@@ -58,11 +58,11 @@ class SideBar extends Component {
                                 {profileStore.getProfile?.avatarUrl ?
                                     <img className="avatar" src={profileStore.getProfile?.avatarUrl} alt="profile"/> :
                                     <button type="button" className="btn btn-primary avatar btn-social-icon btn-rounded">
-                                        {profileStore.getProfile?.displayName.slice(0, 1).toUpperCase()}
+                                        {profileStore.getProfile?.fullName.slice(0, 1).toUpperCase()}
                                     </button>
                                 }
                                 <div className="profile-details">
-                                    <p className="name">{profileStore.getProfile?.displayName}</p>
+                                    <p className="name">{profileStore.getProfile?.fullName}</p>
                                     <small className="designation">{profileStore.getProfile?.role}</small>
                                 </div>
                             </Link>

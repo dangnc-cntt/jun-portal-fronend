@@ -64,6 +64,7 @@
     "event-source-polyfill": "^1.0.12",
     "eventsource": "^1.0.7",
     "file-loader": "4.3.0",
+    "firebase": "^9.1.0",
     "font-picker-react": "^3.5.1",
     "fs-extra": "^8.1.0",
     "highcharts": "^9.1.2",
