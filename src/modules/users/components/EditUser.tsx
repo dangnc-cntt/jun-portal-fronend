@@ -19,6 +19,13 @@ class EditUser extends Component {
                         </div>
                         <div className="modal-body">
                             {!userStore.isGetDetail ? <>
+                                <div className="form-group">
+                                    <label>User Name</label>
+                                    <input type="text" disabled={true}
+                                           className="form-control"
+                                           value={userStore.dataRequest.username}
+                                    />
+                                </div>
                             <div className="form-group">
                                 <label>Full Name<sup className="text-danger">*</sup></label>
                                 <input type="text" 
@@ -48,17 +55,16 @@ class EditUser extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label>Gender<sup className="text-danger">*</sup></label>
-                                    <select className="form-control"
-                                            value={userStore.dataRequest.gender}
+                                    <select className="form-control" value={userStore.dataRequest.gender}
                                             onChange={(e: any) => userStore.dataRequest.gender = e.currentTarget.value}>
                                         <option value="">Choose Gender</option>
-                                        <option value={Gender.OTHER}>{Gender.OTHER}</option>
-                                        <option value={Gender.MALE}>{Gender.MALE}</option>
-                                        <option value={Gender.FEMALE}>{Gender.FEMALE}</option>
+                                        <option value={Gender.OTHER} selected={userStore.dataRequest.gender == Gender.OTHER}>{Gender.OTHER}</option>
+                                        <option value={Gender.MALE} selected={userStore.dataRequest.gender == Gender.MALE}>{Gender.MALE}</option>
+                                        <option value={Gender.FEMALE} selected={userStore.dataRequest.gender == Gender.FEMALE}>{Gender.FEMALE}</option>
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <label>Address</label>
+                                    <label>Address<sup className="text-danger">*</sup></label>
                                     <input type="text"
                                            placeholder="Enter address"
                                            className="form-control"

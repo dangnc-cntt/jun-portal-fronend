@@ -1,30 +1,41 @@
 import React, {Component} from 'react';
 import {observer} from "mobx-react";
-import {profileStore,TabActive} from "../../profile/ProfileStore";
 import {css} from "@emotion/core";
 import "../styles/profileStyle.scss"
 import { requestUtils } from '../../../common/utils/RequestUtil';
 import Loading from '../../../common/component/Loading';
+import {profileStore, TabActive} from "../ProfileStore";
+import {userStore} from "../../users/UserStore";
+import {Gender} from "../../users/UserModel";
 
 @observer
 class Profile extends Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
-            showPassword: false,
+            showOldPassword: false,
+            showNewPassword: false,
             showConfirmPassword: false
         };
     }
 
+    componentDidMount() {
+    }
+
     public activeTab(tab: any) {
-        requestUtils.saveQueryParam(this.props, {tab: tab});
         profileStore.activeTab = tab
     }
 
-    showPassword(e: any) {
+    showOldPassword(e: any) {
         e.preventDefault()
         this.setState({
-            showPassword: !this.state.showPassword
+            showOldPassword: !this.state.showOldPassword
+        });
+    }
+    showNewPassword(e: any) {
+        e.preventDefault()
+        this.setState({
+            showNewPassword: !this.state.showNewPassword
         });
     }
 
@@ -36,6 +47,7 @@ class Profile extends Component<any, any> {
     }
 
     render() {
+        window.scroll(0, 0)
         return (
             <div className="content-wrapper update-account">
                 <div className="row d-flex align-items-center justify-content-between mb-3">
@@ -93,8 +105,8 @@ class Profile extends Component<any, any> {
                                         <div className="form-group">
                                             <label>User Name</label>
                                             <input type="text" 
-                                                defaultValue={profileStore.editProfile.userName}
-                                                onChange={(e: any) => profileStore.editProfile.userName = e.currentTarget.value}
+                                                defaultValue={profileStore.editProfile.username}
+                                                onChange={(e: any) => profileStore.editProfile.username = e.currentTarget.value}
                                                 className='form-control form-control-lg'
                                             />
                                         </div>
@@ -107,11 +119,45 @@ class Profile extends Component<any, any> {
                                             />
                                         </div>
                                         <div className="form-group">
+                                            <label>Phone</label>
+                                            <input type="text"
+                                                   defaultValue={profileStore.editProfile.phone}
+                                                   onChange={(e: any) => profileStore.editProfile.phone = e.currentTarget.value}
+                                                   className='form-control form-control-lg'
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Email</label>
+                                            <input type="text"
+                                                   defaultValue={profileStore.editProfile.email}
+                                                   onChange={(e: any) => profileStore.editProfile.email = e.currentTarget.value}
+                                                   className='form-control form-control-lg'
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Gender</label>
+                                            <select className="form-control" value={profileStore.editProfile.gender}
+                                                    onChange={(e: any) => profileStore.editProfile.gender = e.currentTarget.value}>
+                                                <option value="">Choose Gender</option>
+                                                <option value={Gender.OTHER} selected={profileStore.editProfile.gender == Gender.OTHER}>{Gender.OTHER}</option>
+                                                <option value={Gender.MALE} selected={profileStore.editProfile.gender == Gender.MALE}>{Gender.MALE}</option>
+                                                <option value={Gender.FEMALE} selected={profileStore.editProfile.gender == Gender.FEMALE}>{Gender.FEMALE}</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group">
                                             <label>Role</label>
-                                            <input type="text" 
-                                                defaultValue={profileStore.editProfile.role}
-                                                disabled={true}
-                                                className='form-control form-control-lg'
+                                            <input type="text"
+                                                   defaultValue={profileStore.editProfile.role}
+                                                   disabled={true}
+                                                   className='form-control form-control-lg'
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Address</label>
+                                            <input type="text"
+                                                   defaultValue={profileStore.editProfile.address}
+                                                   onChange={(e: any) => profileStore.editProfile.address = e.currentTarget.value}
+                                                   className='form-control form-control-lg'
                                             />
                                         </div>
                                         <div className="footer_bt">
@@ -128,17 +174,34 @@ class Profile extends Component<any, any> {
                                         </div>
                                         <form className="channel_pass">
                                             <div className="form-group">
+                                                <label>Old Password</label>
+                                                <div className="position-relative">
+                                                    <input autoComplete="new-password"
+                                                           type={this.state.showOldPassword ? "text" : "password"}
+                                                           className='form-control form-control-lg'
+                                                           defaultValue={profileStore.userPassword.oldPassword}
+                                                           onChange={(e: any) => profileStore.userPassword.oldPassword = e.currentTarget.value}
+                                                           placeholder="Enter your new password"
+                                                    />
+                                                    <button className="btn position-absolute" onClick={(e: any) => this.showOldPassword(e)} css={btn_show}>{
+                                                        this.state.showOldPassword ?
+                                                            <i className="fas fa-eye d-block" css={css_icon}/> :
+                                                            <i className="fas fa-eye-slash d-block" css={css_icon}/>
+                                                    }</button>
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
                                                 <label>New Password</label>
                                                 <div className="position-relative">
                                                     <input autoComplete="new-password" 
-                                                        type={this.state.showPassword ? "text" : "password"} 
+                                                        type={this.state.showNewPassword ? "text" : "password"}
                                                         className='form-control form-control-lg'
-                                                        defaultValue={profileStore.userPassword.password} 
-                                                        onChange={(e: any) => profileStore.userPassword.password = e.currentTarget.value}
+                                                        defaultValue={profileStore.userPassword.newPassword}
+                                                        onChange={(e: any) => profileStore.userPassword.newPassword = e.currentTarget.value}
                                                         placeholder="Enter your new password"
                                                     />
-                                                    <button className="btn position-absolute" onClick={(e) => this.showPassword(e)} css={btn_show}>{
-                                                        this.state.showPassword ? 
+                                                    <button className="btn position-absolute" onClick={(e: any) => this.showNewPassword(e)} css={btn_show}>{
+                                                        this.state.showNewPassword ?
                                                         <i className="fas fa-eye d-block" css={css_icon}/> :
                                                         <i className="fas fa-eye-slash d-block" css={css_icon}/>
                                                     }</button>
@@ -154,7 +217,7 @@ class Profile extends Component<any, any> {
                                                         onChange={(e: any) => profileStore.userPassword.confirmPassword = e.currentTarget.value}
                                                         placeholder="Enter your new password again"
                                                     />
-                                                    <button className="btn position-absolute" onClick={(e) => this.showConfirmPassword(e)} css={btn_show}>{
+                                                    <button className="btn position-absolute" onClick={(e: any) => this.showConfirmPassword(e)} css={btn_show}>{
                                                         this.state.showConfirmPassword ? 
                                                         <i className="fas fa-eye d-block" css={css_icon}/> :
                                                         <i className="fas fa-eye-slash d-block" css={css_icon}/>
@@ -163,7 +226,7 @@ class Profile extends Component<any, any> {
                                             </div>
                                             <div className="footer_bt">
                                                 <button type="button" className="btn btn-info"
-                                                    onClick={(e) => profileStore.changePassword(e)}
+                                                    onClick={(e: any) => profileStore.changePassword(e)}
                                                 >Changes Password</button>
                                             </div>
                                         </form>

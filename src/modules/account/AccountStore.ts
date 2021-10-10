@@ -12,7 +12,7 @@ class AccountStore {
     @observable public page: number = 0;
     @observable public userId: number = 0;
     @observable public totalPages: number = 0;
-    @observable public userList: any[] = [];
+    @observable public listAccount: any[] = [];
     @observable public dataRequest: any = {
         id: 0,
         userName: "",
@@ -40,7 +40,7 @@ class AccountStore {
     @action async getAccount() {
         const result = await accountService.getAccount();
         if (result.status === HttpStatusCode.OK) {
-            this.userList = result.body.data;
+            this.listAccount = result.body.data;
             this.totalPages = result.body.metadata.totalPages;
         } else {
             toastUtil.error(result.body.message ? result.body.message : 'Get list user false.');
@@ -50,7 +50,7 @@ class AccountStore {
     @action async searchAccount() {
         const result = await accountService.searchAccount();
         if (result.status === HttpStatusCode.OK) {
-            this.userList = result.body.data;
+            this.listAccount = result.body.data;
             this.totalPages = result.body.metadata.totalPages;
         } else {
             toastUtil.error(result.body.message ? result.body.message : 'Search user false.');
@@ -125,77 +125,6 @@ class AccountStore {
         } else {
             toastUtil.error(res.body.message ? res.body.message : 'Update false.');
         }
-    }
-
-    async created() {
-        let {  userName, password, fullName, email, gender, address, phone } = this.dataRequest;
-        if(!userName) {
-            toastUtil.warning('Please enter username.');
-            return false;
-        }
-        if(userName.length < 6 || userName.length>18) {
-            toastUtil.warning('Username must be 6 to 18 character.');
-            return false;
-        }
-        if(!fullName) {
-            toastUtil.warning('Please enter Full name.');
-            return false;
-        }
-        if(!email) {
-            toastUtil.warning('Please enter Email.');
-            return false;
-        }
-        if(!password) {
-            toastUtil.warning('Please enter password.');
-            return false;
-        }
-        if(password.length < 6 || password.length>18) {
-            toastUtil.warning('Username must be 6 to 18 character.');
-            return false;
-        }
-        if(!phone) {
-            toastUtil.warning('Please enter Phone.');
-            return false;
-        }
-        if(!address) {
-            toastUtil.warning('Please enter Address.');
-            return false;
-        }
-        if(!gender) {
-            toastUtil.warning('Please enter Gender.');
-            return false;
-        }
-
-        const data = {
-            userName: userName,
-            fullName: fullName,
-            email: email,
-            password: password,
-            gender: gender,
-            address: address,
-            phone: phone,
-        }
-
-        const res = await accountService.addAccount(data);
-        if (res.status === HttpStatusCode.OK) {
-            this.getAccount();
-            toastUtil.success('Create user success');
-            $('#close_add_account').trigger('click');
-            this.clearForm();
-        } else {
-            toastUtil.error(res.body.message ? res.body.message : 'Add false.');
-        }
-    }
-
-    async deleteUser() {
-        const res = await accountService.deleteAccount(this.userId);
-        if (res.status === HttpStatusCode.OK) {
-            this.getAccount();
-            toastUtil.success('Delete user success');
-        } else {
-            toastUtil.error(res.body.message ? res.body.message : 'Delete false.');
-        }
-        $('#close_delete_account').trigger('click');
     }
 
 }

@@ -16,7 +16,7 @@ export interface IEditProfile {
     email: string,
     gender: string,
     address: string,
-    userName: string,
+    username: string,
 }
 
 export enum TabActive {
@@ -25,7 +25,8 @@ export enum TabActive {
 }
 
 export interface IEditPassword {
-    password: string,
+    oldPassword: string,
+    newPassword: string,
     confirmPassword: string,
 }
 
@@ -44,10 +45,11 @@ class ProfileStore {
         email: '',
         gender: '',
         phone: '',
-        userName: "",
+        username: "",
     };
     @observable public userPassword: IEditPassword = {
-        password: '',
+        oldPassword: '',
+        newPassword: '',
         confirmPassword: ''
     };
 
@@ -56,16 +58,19 @@ class ProfileStore {
     }
 
     async updated() {
-        let {userName, fullName, role} = this.editProfile;
-        if (!userName) {
+        let {username, fullName, gender, address, email,phone} = this.editProfile;
+        if (!username) {
             toastUtil.warning('Please enter username.');
         } else if (!fullName) {
             toastUtil.warning('Please enter full name.');
         } else {
             const data: any = {
-                userName: userName,
+                username: username,
                 fullName: fullName,
-                role: role,
+                gender: gender,
+                email: email,
+                phone: phone,
+                address: address
             }
             const res = await putRequest(`/v1/portal/admin/users/${this.getProfile?.id}`, data);
             if (res.status === HttpStatusCode.OK) {
@@ -80,33 +85,41 @@ class ProfileStore {
 
     async changePassword(e: any) {
         e.preventDefault();
-        let {userName, fullName, role} = this.editProfile;
-        let {password, confirmPassword} = this.userPassword;
-        if (!password) {
-            toastUtil.warning('Please enter password.');
-        } else if (password.length < 6 && password.length > 50) {
+        let {oldPassword, newPassword, confirmPassword} = this.userPassword;
+        if (!oldPassword) {
+            toastUtil.warning('Please enter oldPassword.');
+            return false;
+        }
+        if (!newPassword) {
+            toastUtil.warning('Please enter newPassword.');
+            return false;
+        }
+        if (newPassword.length < 6 && newPassword.length > 50) {
             toastUtil.warning('Password must be between 6 and 50 characters.');
-        } else if (!confirmPassword) {
+            return false
+        }
+         if (!confirmPassword) {
             toastUtil.warning('Please enter confirm password.');
-        } else if (confirmPassword != password) {
+             return false
+        }
+         if (confirmPassword != newPassword) {
             toastUtil.warning('Password and confirmPassword not match.');
+             return false
+        }
+
+         const data: any = {
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+            confirmedPassword: confirmPassword,
+        }
+        const res = await putRequest(`/v1/portal/users/change_password`, data);
+        if (res.status === HttpStatusCode.OK) {
+            toastUtil.success('Change password success');
+            this.userPassword.oldPassword = '';
+            this.userPassword.newPassword = '';
+            this.userPassword.confirmPassword = '';
         } else {
-            const data: any = {
-                userName: userName,
-                fullName: fullName,
-                role: role,
-                confirmedPassword: confirmPassword,
-                password: password,
-            }
-            const res = await putRequest(`/v1/portal/admin/users/${this.getProfile?.id}`, data);
-            if (res.status === HttpStatusCode.OK) {
-                toastUtil.success('Change password success');
-                this.userPassword.password = '';
-                this.userPassword.confirmPassword = '';
-            } else {
-                toastUtil.error(res.body.message ? res.body.message : 'Change password false.');
-            }
-            $('#close_edit_pass').trigger('click');
+            toastUtil.error(res.body.message ? res.body.message : 'Change password false.');
         }
     }
 
