@@ -1,14 +1,10 @@
 import {action, observable} from "mobx";
-import {userService} from "./UserService";
+import $ from "jquery";
 import HttpStatusCode from "../../common/constants/HttpErrorCode";
 import {toastUtil} from "../../common/utils/ToastUtil";
-import $ from "jquery";
-import * as model from './UserModel';
+import {accountService} from "./AccountService";
 
-
-
-
-class UserStore {
+class AccountStore {
     @observable public isLoading: boolean = false;
     @observable public isLoadingButton: boolean = false;
     @observable public isGetDetail: boolean = false;
@@ -16,10 +12,10 @@ class UserStore {
     @observable public page: number = 0;
     @observable public userId: number = 0;
     @observable public totalPages: number = 0;
-    @observable public userList: model.IListUser[] = [];
-    @observable public dataRequest: model.IAddUser = {
+    @observable public userList: any[] = [];
+    @observable public dataRequest: any = {
         id: 0,
-        username: "",
+        userName: "",
         fullName: "",
         password: "",
         address: "",
@@ -31,7 +27,7 @@ class UserStore {
     @action async clearForm() {
         this.dataRequest = {
             id: 0,
-            username: "",
+            userName: "",
             fullName: "",
             password: "",
             address: "",
@@ -41,8 +37,8 @@ class UserStore {
         }
     }
 
-    @action async getUsers() {
-        const result = await userService.getUsers();
+    @action async getAccount() {
+        const result = await accountService.getAccount();
         if (result.status === HttpStatusCode.OK) {
             this.userList = result.body.data;
             this.totalPages = result.body.metadata.totalPages;
@@ -51,8 +47,8 @@ class UserStore {
         }
     }
 
-    @action async searchUser() {
-        const result = await userService.searchUser();
+    @action async searchAccount() {
+        const result = await accountService.searchAccount();
         if (result.status === HttpStatusCode.OK) {
             this.userList = result.body.data;
             this.totalPages = result.body.metadata.totalPages;
@@ -61,10 +57,10 @@ class UserStore {
         }
     }
 
-    @action async userDetail(id: number) {
+    @action async accountDetail(id: number) {
         this.isGetDetail = true;
         this.clearForm();
-        const result = await userService.userDetail(id);
+        const result = await accountService.accountDetail(id);
         if (result.status === HttpStatusCode.OK) {
             this.dataRequest = result.body;
         } else {
@@ -74,56 +70,21 @@ class UserStore {
     }
 
     async updated() {
-        let { id, username, password, fullName, email, gender, address, phone } = this.dataRequest;
-
+        let { id, userName, password, fullName, email, gender, address, phone } = this.dataRequest;
+        if(!userName) {
+            toastUtil.warning('Please enter username.');
+            return false;
+        }
+        if(userName.length < 6 || userName.length>18) {
+            toastUtil.warning('Username must be 6 to 18 character.');
+            return false;
+        }
         if(!fullName) {
             toastUtil.warning('Please enter Full name.');
             return false;
         }
         if(!email) {
             toastUtil.warning('Please enter Email.');
-            return false;
-        }
-        if(!phone) {
-            toastUtil.warning('Please enter Phone.');
-            return false;
-        }
-        if(!address) {
-            toastUtil.warning('Please enter Address.');
-            return false;
-        }
-        if(!gender) {
-            toastUtil.warning('Please enter Gender.');
-            return false;
-        }
-
-        const data = {
-            username: username,
-            fullName: fullName,
-            email: email,
-            password: password,
-            gender: gender,
-            address: address,
-            phone: phone,
-        }
-        const res = await userService.updateUser(id, data);
-        if (res.status === HttpStatusCode.OK) {
-            this.getUsers();
-            toastUtil.success('Update user success');
-            $('#close_edit_user').trigger('click');
-        } else {
-            toastUtil.error(res.body.message ? res.body.message : 'Update false.');
-        }
-    }
-
-    async created() {
-        let {  username, password, fullName, email, gender, address, phone } = this.dataRequest;
-        if(!username) {
-            toastUtil.warning('Please enter username.');
-            return false;
-        }
-        if(username.length < 6 || username.length>18) {
-            toastUtil.warning('Username must be 6 to 18 character.');
             return false;
         }
         if(!password) {
@@ -134,12 +95,62 @@ class UserStore {
             toastUtil.warning('Username must be 6 to 18 character.');
             return false;
         }
+        if(!phone) {
+            toastUtil.warning('Please enter Phone.');
+            return false;
+        }
+        if(!address) {
+            toastUtil.warning('Please enter Address.');
+            return false;
+        }
+        if(!gender) {
+            toastUtil.warning('Please enter Gender.');
+            return false;
+        }
+
+        const data = {
+            userName: userName,
+            fullName: fullName,
+            email: email,
+            password: password,
+            gender: gender,
+            address: address,
+            phone: phone,
+        }
+        const res = await accountService.updateAccount(id, data);
+        if (res.status === HttpStatusCode.OK) {
+            this.getAccount();
+            toastUtil.success('Update user success');
+            $('#close_edit_account').trigger('click');
+        } else {
+            toastUtil.error(res.body.message ? res.body.message : 'Update false.');
+        }
+    }
+
+    async created() {
+        let {  userName, password, fullName, email, gender, address, phone } = this.dataRequest;
+        if(!userName) {
+            toastUtil.warning('Please enter username.');
+            return false;
+        }
+        if(userName.length < 6 || userName.length>18) {
+            toastUtil.warning('Username must be 6 to 18 character.');
+            return false;
+        }
         if(!fullName) {
             toastUtil.warning('Please enter Full name.');
             return false;
         }
         if(!email) {
             toastUtil.warning('Please enter Email.');
+            return false;
+        }
+        if(!password) {
+            toastUtil.warning('Please enter password.');
+            return false;
+        }
+        if(password.length < 6 || password.length>18) {
+            toastUtil.warning('Username must be 6 to 18 character.');
             return false;
         }
         if(!phone) {
@@ -156,7 +167,7 @@ class UserStore {
         }
 
         const data = {
-            username: username,
+            userName: userName,
             fullName: fullName,
             email: email,
             password: password,
@@ -165,11 +176,11 @@ class UserStore {
             phone: phone,
         }
 
-        const res = await userService.addUser(data);
+        const res = await accountService.addAccount(data);
         if (res.status === HttpStatusCode.OK) {
-            this.getUsers();
+            this.getAccount();
             toastUtil.success('Create user success');
-            $('#close_add_user').trigger('click');
+            $('#close_add_account').trigger('click');
             this.clearForm();
         } else {
             toastUtil.error(res.body.message ? res.body.message : 'Add false.');
@@ -177,16 +188,16 @@ class UserStore {
     }
 
     async deleteUser() {
-        const res = await userService.deleteUser(this.userId);
+        const res = await accountService.deleteAccount(this.userId);
         if (res.status === HttpStatusCode.OK) {
-            this.getUsers();
+            this.getAccount();
             toastUtil.success('Delete user success');
         } else {
             toastUtil.error(res.body.message ? res.body.message : 'Delete false.');
         }
-        $('#close_delete_user').trigger('click');
+        $('#close_delete_account').trigger('click');
     }
 
 }
 
-export const userStore = new UserStore();
+export const accountStore = new AccountStore();

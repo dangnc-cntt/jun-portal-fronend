@@ -14,7 +14,7 @@ class DeleteUser extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <h3 className="modal-title w-100 text-center mb-3">Delete Usser</h3>
+                            <h3 className="modal-title w-100 text-center mb-3">Delete User</h3>
                             <p className="text-center">Are you sure to delete user?</p>
                             <p className="text-center text-danger">The operation is irreversible!</p>
                         </div>

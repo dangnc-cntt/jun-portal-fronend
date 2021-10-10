@@ -7,7 +7,6 @@ import ReactPaginate from "react-paginate";
 import {userStore} from "./UserStore";
 import {requestUtils} from "../../common/utils/RequestUtil";
 import {State} from './UserModel';
-import ChangePassword from "./components/ChangePassword";
 import DeleteUser from "./components/DeleteUser";
 import EditUser from "./components/EditUser";
 import AddUser from "./components/AddUser";
@@ -47,11 +46,6 @@ class UserList extends Component {
                 break;
             case State.BANNED:
                 return <span css={css_} className="bt-danger">BANNED</span>;
-            case State.NOT_VERIFIED:
-                return <span css={css_} className="bt-warning">NOT VERIFIED</span>;
-                break;
-            case State.VERIFIED:
-                return <span css={css_} className="bt-info">VERIFIED</span>;
                 break;
         }
     }
@@ -71,12 +65,12 @@ class UserList extends Component {
                                 <div className="d-flex search_name from-ground">
                                     <input type="text" className="search form-control"
                                            onChange={(e: any) => userStore.searchName = e.currentTarget.value}
-                                           onKeyDown={(e: any) => this.enterSearch(e)} placeholder="Search by name"/>
+                                           onKeyDown={(e: any) => this.enterSearch(e)} placeholder="Search by full name"/>
                                     <button type="button" onClick={() => this.searchByName()}
                                             className="btn btn-info d-flex align-items-center justify-content-center">
                                         <i className="far fa-search"/></button>
                                 </div>
-                                <button type="button" className="btn btn-outline-info" onClick={() => userStore.clearFormAdd()} data-toggle="modal" data-target="#addUser">Create</button>
+                                <button type="button" className="btn btn-outline-info" onClick={() => userStore.clearForm()} data-toggle="modal" data-target="#addUser">Create</button>
                             </div>
                             {userStore.isLoading ? <Loading/> :
                                 <div className="table-responsive mt-4">
@@ -86,7 +80,7 @@ class UserList extends Component {
                                                 <tr>
                                                     <th><strong>Id</strong></th>
                                                     <th><strong>User Name</strong></th>
-                                                    <th><strong>Display Name</strong></th>
+                                                    <th><strong>Full Name</strong></th>
                                                     <th><strong>Role</strong></th>
                                                     <th><strong>Created At</strong></th>
                                                     <th><strong>Updated At</strong></th>
@@ -98,34 +92,22 @@ class UserList extends Component {
                                             {userStore.userList.map((item, i) => (
                                                 <tr key={i} className="position-relative">
                                                     <td>{item.id}</td>
-                                                    <td width="25%">{item.userName}</td>
-                                                    <td>{item.displayName}</td>
+                                                    <td width="25%">{item.username}</td>
+                                                    <td>{item.fullName}</td>
                                                     <td>{item.role}</td>
                                                     <td>{item.createdAt ? getLocalDateTime(item.createdAt, 'dd/mm/yyyy') : ''}</td>
                                                     <td>{item.updatedAt ? getLocalDateTime(item.updatedAt, 'dd/mm/yyyy') : ''}</td>
                                                     <td>{this.status(item.state)}</td>
                                                     <td width="5%" className="text-center">
                                                         <div className="btn-group">
-                                                            <button type="button"
-                                                                    onClick={() => userStore.userDetail(item.id)}
-                                                                    className="btn btn-inverse-info btn-icon"
-                                                                    data-toggle="modal"
-                                                                    data-target="#editPassword">
+                                                            <button type="button" className="btn btn-inverse-info btn-icon">
                                                                 <i className="fas fa-key-skeleton"/>
                                                             </button>
                                                             <button type="button"
                                                                     onClick={() => userStore.userDetail(item.id)}
                                                                     className="btn btn-inverse-warning btn-icon"
-                                                                    data-toggle="modal"
-                                                                    data-target="#editUser">
+                                                                    data-toggle="modal" data-target="#editUser">
                                                                 <i className="fas fa-pen"/>
-                                                            </button>
-                                                            <button type="button"
-                                                                    onClick={() => userStore.userId = item.id}
-                                                                    data-toggle="modal"
-                                                                    data-target="#deleteUser"
-                                                                    className="btn btn-inverse-danger btn-icon">
-                                                                <i className="fas fa-trash-alt"/>
                                                             </button>
                                                         </div>
                                                     </td>
@@ -153,7 +135,6 @@ class UserList extends Component {
                             </div>
                         </div>
                     </div>
-                    <ChangePassword/>
                     <DeleteUser/>
                     <EditUser/>
                     <AddUser/>

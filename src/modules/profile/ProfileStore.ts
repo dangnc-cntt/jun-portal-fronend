@@ -2,7 +2,7 @@ import {computed, observable} from "mobx";
 import {accountService} from "../authen/AccountService";
 import HttpStatusCode from "../../common/constants/HttpErrorCode";
 import {toastUtil} from "../../common/utils/ToastUtil";
-import {userService} from "../users/UserService";
+import {putRequest} from "../../common/helpers/RequestHelper";
 
 export interface IProfile {
     "userId": string,
@@ -67,10 +67,10 @@ class ProfileStore {
                 fullName: fullName,
                 role: role,
             }
-            const res = await userService.updateUser(this.getProfile?.id, data);
+            const res = await putRequest(`/v1/portal/admin/users/${this.getProfile?.id}`, data);
             if (res.status === HttpStatusCode.OK) {
                 this.getProfiles();
-                toastUtil.success('Update user success');
+                toastUtil.success('Update success');
             } else {
                 toastUtil.error(res.body.message ? res.body.message : 'Update false.');
             }
@@ -98,7 +98,7 @@ class ProfileStore {
                 confirmedPassword: confirmPassword,
                 password: password,
             }
-            const res = await userService.changePass(this.getProfile?.id, data);
+            const res = await putRequest(`/v1/portal/admin/users/${this.getProfile?.id}`, data);
             if (res.status === HttpStatusCode.OK) {
                 toastUtil.success('Change password success');
                 this.userPassword.password = '';
@@ -113,12 +113,12 @@ class ProfileStore {
     async getProfiles() {
         this.isLoading = true;
         const response = await accountService.getProfile();
+        this.isLoading = false;
         if (response.status === HttpStatusCode.OK) {
             this.isProfile = true;
             this.getProfile = response.body;
             this.editProfile = response.body;
         }
-        this.isLoading = false;
     }
 }
 

@@ -99,7 +99,7 @@ class Profile extends Component<any, any> {
                                             />
                                         </div>
                                         <div className="form-group">
-                                            <label>Display Name</label>
+                                            <label>Full Name</label>
                                             <input type="text" 
                                                 defaultValue={profileStore.editProfile.fullName}
                                                 onChange={(e: any) => profileStore.editProfile.fullName = e.currentTarget.value}
@@ -139,8 +139,8 @@ class Profile extends Component<any, any> {
                                                     />
                                                     <button className="btn position-absolute" onClick={(e) => this.showPassword(e)} css={btn_show}>{
                                                         this.state.showPassword ? 
-                                                        <i className="fas fa-eye d-block" css={css_icon}></i> :
-                                                        <i className="fas fa-eye-slash d-block" css={css_icon}></i>
+                                                        <i className="fas fa-eye d-block" css={css_icon}/> :
+                                                        <i className="fas fa-eye-slash d-block" css={css_icon}/>
                                                     }</button>
                                                 </div>
                                             </div>
@@ -156,8 +156,8 @@ class Profile extends Component<any, any> {
                                                     />
                                                     <button className="btn position-absolute" onClick={(e) => this.showConfirmPassword(e)} css={btn_show}>{
                                                         this.state.showConfirmPassword ? 
-                                                        <i className="fas fa-eye d-block" css={css_icon}></i> :
-                                                        <i className="fas fa-eye-slash d-block" css={css_icon}></i>
+                                                        <i className="fas fa-eye d-block" css={css_icon}/> :
+                                                        <i className="fas fa-eye-slash d-block" css={css_icon}/>
                                                     }</button>
                                                 </div>
                                             </div>

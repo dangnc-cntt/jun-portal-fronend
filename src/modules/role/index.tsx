@@ -9,7 +9,7 @@ class index extends Component {
 
     render() {
        if(profileStore.getProfile){
-           return <Redirect to="/profile"/>
+           return <Redirect to="/user"/>
        }else return true
 
     }

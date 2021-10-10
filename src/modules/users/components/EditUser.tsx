@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {userStore} from "../UserStore";
-import {Role, State} from "../UserModel";
 import {observer} from "mobx-react";
 import Loading from '../../../common/component/Loading';
+import {Gender} from "../UserModel";
 
 @observer
 class EditUser extends Component {
@@ -18,55 +18,59 @@ class EditUser extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            { !userStore.isGetDetail ? <>
+                            {!userStore.isGetDetail ? <>
                             <div className="form-group">
-                                <label>Username<sup className="text-danger">*</sup></label>
+                                <label>Full Name<sup className="text-danger">*</sup></label>
                                 <input type="text" 
-                                    placeholder="Enter username" 
+                                    placeholder="Enter full name"
                                     className="form-control" 
-                                    value={userStore.editUser.userName} 
-                                    onChange={(e: any) => userStore.editUser.userName = e.currentTarget.value}
+                                    value={userStore.dataRequest.fullName}
+                                    onChange={(e: any) => userStore.dataRequest.fullName = e.currentTarget.value}
                                 />
                             </div>
-                            <div className="form-group">
-                                <label>Display Name<sup className="text-danger">*</sup></label>
-                                <input type="text" 
-                                    placeholder="Enter display name" 
-                                    className="form-control" 
-                                    value={userStore.editUser.displayName} 
-                                    onChange={(e: any) => userStore.editUser.displayName = e.currentTarget.value}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Role</label>
-                                <select className="form-control" 
-                                    value={userStore.editUser.role} 
-                                    onChange={(e: any) => userStore.editUser.role = e.currentTarget.value}
-                                >
-                                    <option value="">Choose Role</option>
-                                    <option value={Role.PUBLISHER}>{Role.PUBLISHER}</option>
-                                    <option value={Role.USER}>{Role.USER}</option>
-                                    {/* <option value={Role.ADMIN}>{Role.ADMIN}</option> */}
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <label>State<sup className="text-danger">*</sup></label> 
-                                <select className="form-control" 
-                                    value={userStore.editUser.state} 
-                                    onChange={(e: any) => userStore.editUser.state = e.currentTarget.value}
-                                >
-                                    <option value="">Choose State</option>
-                                    <option value={State.ACTIVATED}>{State.ACTIVATED}</option>
-                                    <option value={State.BANNED}>{State.BANNED}</option>
-                                    <option value={State.VERIFIED}>{State.VERIFIED}</option>
-                                    <option value={State.NOT_VERIFIED}>{State.NOT_VERIFIED}</option>
-                                </select>
-                            </div>
+                                <div className="form-group">
+                                    <label>Phone<sup className="text-danger">*</sup></label>
+                                    <input type="text"
+                                           placeholder="Enter Phone number"
+                                           className="form-control"
+                                           value={userStore.dataRequest.phone}
+                                           onChange={(e: any) => userStore.dataRequest.phone = e.currentTarget.value}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Email<sup className="text-danger">*</sup></label>
+                                    <input type="text"
+                                           placeholder="Enter email"
+                                           className="form-control"
+                                           value={userStore.dataRequest.email}
+                                           onChange={(e: any) => userStore.dataRequest.email = e.currentTarget.value}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Gender<sup className="text-danger">*</sup></label>
+                                    <select className="form-control"
+                                            value={userStore.dataRequest.gender}
+                                            onChange={(e: any) => userStore.dataRequest.gender = e.currentTarget.value}>
+                                        <option value="">Choose Gender</option>
+                                        <option value={Gender.OTHER}>{Gender.OTHER}</option>
+                                        <option value={Gender.MALE}>{Gender.MALE}</option>
+                                        <option value={Gender.FEMALE}>{Gender.FEMALE}</option>
+                                    </select>
+                                </div>
+                                <div className="form-group">
+                                    <label>Address</label>
+                                    <input type="text"
+                                           placeholder="Enter address"
+                                           className="form-control"
+                                           value={userStore.dataRequest.address}
+                                           onChange={(e: any) => userStore.dataRequest.address = e.currentTarget.value}
+                                    />
+                                </div>
                         </> : <Loading/> }
                         </div>
                         <div className="modal-footer border-top-0 pt-0">
                             <button type="button" className="btn" data-dismiss="modal">Cancel</button>
-                            <button type="button" onClick={() => userStore.updated()} className="btn btn-info">Ok</button>
+                            <button type="button" onClick={() => userStore.updated()} className="btn btn-info">Update</button>
                         </div>
                     </div>
                 </div>

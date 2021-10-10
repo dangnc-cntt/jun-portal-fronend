@@ -19,12 +19,38 @@ class SideBar extends Component {
                     "id": 0,
                     "name": "Home",
                     "icon": "fas fa-user-friends",
-                    "rootMenu": ['/dashboard'],
+                    "rootMenu": ['/profile'],
                     "subMenu": [
                         {
                             "id": 0,
-                            "name": "Dashboard",
-                            "link": '/dashboard'
+                            "name": "Profile",
+                            "link": '/profile'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
+                    "name": "User",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/user'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "UserList",
+                            "link": '/user'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
+                    "name": "Account",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/account'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Account",
+                            "link": '/account'
                         }
                     ]
                 },
