@@ -2,14 +2,15 @@ import firebase from "firebase/compat";
 import 'firebase/storage'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBw9q46vC8AldGOeBZRSG3lzNl6EL95YVE",
-    authDomain: "jun-shop-24c25.firebaseapp.com",
-    projectId: "jun-shop-24c25",
-    storageBucket: "jun-shop-24c25.appspot.com",
-    messagingSenderId: "931215950321",
-    appId: "1:931215950321:web:9bfe3e61ab30ba88c10450",
-    measurementId: "G-6N3DX80J7C"
+    apiKey: "AIzaSyCY2g72Vn50IL4ds0rCqLV3iHWLWeqTMi0",
+    authDomain: "jun-shop-1eabc.firebaseapp.com",
+    projectId: "jun-shop-1eabc",
+    storageBucket: "jun-shop-1eabc.appspot.com",
+    messagingSenderId: "666017083349",
+    appId: "1:666017083349:web:3832de7810e582b11a575c",
+    measurementId: "G-LFEZX3F2JQ"
 };
+
 
 firebase.initializeApp(firebaseConfig);
 
