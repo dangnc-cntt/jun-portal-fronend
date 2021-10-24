@@ -1,5 +1,4 @@
 import {action, observable} from "mobx";
-import $ from "jquery";
 import HttpStatusCode from "../../common/constants/HttpErrorCode";
 import {toastUtil} from "../../common/utils/ToastUtil";
 import {accountService} from "./AccountService";
@@ -69,59 +68,15 @@ class AccountStore {
         this.isGetDetail = false;
     }
 
-    async updated() {
-        let { id, userName, password, fullName, email, gender, address, phone } = this.dataRequest;
-        if(!userName) {
-            toastUtil.warning('Please enter username.');
-            return false;
-        }
-        if(userName.length < 6 || userName.length>18) {
-            toastUtil.warning('Username must be 6 to 18 character.');
-            return false;
-        }
-        if(!fullName) {
-            toastUtil.warning('Please enter Full name.');
-            return false;
-        }
-        if(!email) {
-            toastUtil.warning('Please enter Email.');
-            return false;
-        }
-        if(!password) {
-            toastUtil.warning('Please enter password.');
-            return false;
-        }
-        if(password.length < 6 || password.length>18) {
-            toastUtil.warning('Username must be 6 to 18 character.');
-            return false;
-        }
-        if(!phone) {
-            toastUtil.warning('Please enter Phone.');
-            return false;
-        }
-        if(!address) {
-            toastUtil.warning('Please enter Address.');
-            return false;
-        }
-        if(!gender) {
-            toastUtil.warning('Please enter Gender.');
-            return false;
-        }
+    async bannedAccount(id: any, state: any) {
 
-        const data = {
-            userName: userName,
-            fullName: fullName,
-            email: email,
-            password: password,
-            gender: gender,
-            address: address,
-            phone: phone,
-        }
-        const res = await accountService.updateAccount(id, data);
+        const res = await accountService.bannedAccount(id, state);
         if (res.status === HttpStatusCode.OK) {
-            this.getAccount();
-            toastUtil.success('Update user success');
-            $('#close_edit_account').trigger('click');
+            this.listAccount.map((value) => {
+                if(value.id === id){
+                    value.state = state
+                }
+            })
         } else {
             toastUtil.error(res.body.message ? res.body.message : 'Update false.');
         }

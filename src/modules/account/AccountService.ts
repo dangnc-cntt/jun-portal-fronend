@@ -1,22 +1,22 @@
-import {deleteRequest, getRequest, IApiResponse, postRequest, putRequest} from "../../common/helpers/RequestHelper";
+import {getRequest, IApiResponse, putRequest} from "../../common/helpers/RequestHelper";
 import {accountStore} from "./AccountStore";
 
 
 class AccountService {
     public getAccount(): Promise<IApiResponse> {
-        return getRequest(`/v1/portal/users`);
+        return getRequest(`/v1/portal/account`);
     }
 
     public searchAccount(): Promise<IApiResponse> {
-        return getRequest(`/v1/portal/users?fullName=${accountStore.searchName.trim()}`);
+        return getRequest(`/v1/portal/account?fullName=${accountStore.searchName.trim()}`);
     }
 
     public accountDetail(id: number): Promise<IApiResponse> {
-        return getRequest(`/v1/portal/users/${id}`);
+        return getRequest(`/v1/portal/account/${id}`);
     }
 
-    public updateAccount(id: any, data: any): Promise<IApiResponse> {
-        return putRequest(`/v1/portal/users/${id}`, data);
+    public bannedAccount(id: any, state: any): Promise<IApiResponse> {
+        return putRequest(`/v1/portal/account/${id}?state=${state}`, {});
     }
 }
 

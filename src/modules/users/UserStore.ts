@@ -16,7 +16,7 @@ class UserStore {
     @observable public page: number = 0;
     @observable public userId: number = 0;
     @observable public totalPages: number = 0;
-    @observable public userList: model.IListUser[] = [];
+    @observable public userLists: model.IListUser[] = [];
     @observable public dataRequest: model.IAddUser = {
         id: 0,
         username: "",
@@ -44,7 +44,7 @@ class UserStore {
     @action async getUsers() {
         const result = await userService.getUsers();
         if (result.status === HttpStatusCode.OK) {
-            this.userList = result.body.data;
+            this.userLists = result.body.data;
             this.totalPages = result.body.metadata.totalPages;
         } else {
             toastUtil.error(result.body.message ? result.body.message : 'Get list user false.');
@@ -54,7 +54,7 @@ class UserStore {
     @action async searchUser() {
         const result = await userService.searchUser();
         if (result.status === HttpStatusCode.OK) {
-            this.userList = result.body.data;
+            this.userLists = result.body.data;
             this.totalPages = result.body.metadata.totalPages;
         } else {
             toastUtil.error(result.body.message ? result.body.message : 'Search user false.');
