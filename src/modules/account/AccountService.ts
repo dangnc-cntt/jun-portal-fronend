@@ -4,7 +4,7 @@ import {accountStore} from "./AccountStore";
 
 class AccountService {
     public getAccount(): Promise<IApiResponse> {
-        return getRequest(`/v1/portal/account`);
+        return getRequest(`/v1/portal/account?page${accountStore.page}=size=10`);
     }
 
     public searchAccount(): Promise<IApiResponse> {

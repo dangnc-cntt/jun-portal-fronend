@@ -83,7 +83,7 @@ class Account extends Component {
                                                 <th><strong>User Name</strong></th>
                                                 <th><strong>Full Name</strong></th>
                                                 <th><strong>Email</strong></th>
-                                                <th><strong>confirmed At</strong></th>
+                                                <th><strong>Confirmed At</strong></th>
                                                 <th><strong>Status</strong></th>
                                                 <th className="text-center"><strong>Actions</strong></th>
                                             </tr>

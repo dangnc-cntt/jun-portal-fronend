@@ -5,6 +5,9 @@ import Role from '../role/index'
 import UserList from "../users/UserList";
 import Profile from "../profile/component/Profile";
 import Account from "../account/Account";
+import Category from "../category/Category";
+import Color from "../products/color/Color";
+import Size from "../products/size/Size";
 
 export default function Redirect() {
     return (
@@ -14,6 +17,9 @@ export default function Redirect() {
             <Route path={`/user`} component={UserList}/>
             <Route path={`/account`} component={Account}/>
             <Route path={`/profile`} component={Profile}/>
+            <Route path={`/product/category`} component={Category}/>
+            <Route path={`/product/color`} component={Color}/>
+            <Route path={`/product/size`} component={Size}/>
         </div>
     )
 }

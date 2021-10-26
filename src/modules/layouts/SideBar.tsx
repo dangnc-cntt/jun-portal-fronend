@@ -54,6 +54,29 @@ class SideBar extends Component {
                         }
                     ]
                 },
+                {
+                    "id": 0,
+                    "name": "Product",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/product/category', '/product/color', '/product/size'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Color",
+                            "link": '/product/color'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Size",
+                            "link": '/product/size'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Category",
+                            "link": 'product/category'
+                        }
+                    ]
+                },
             ]
         },
     ];
