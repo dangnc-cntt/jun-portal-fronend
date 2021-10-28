@@ -58,7 +58,7 @@ class SideBar extends Component {
                     "id": 0,
                     "name": "Product",
                     "icon": "fas fa-user-friends",
-                    "rootMenu": ['/product/category', '/product/color', '/product/size'],
+                    "rootMenu": ['/product/category', '/product/color', '/product/size', '/products'],
                     "subMenu": [
                         {
                             "id": 0,
@@ -73,7 +73,12 @@ class SideBar extends Component {
                         {
                             "id": 0,
                             "name": "Category",
-                            "link": 'product/category'
+                            "link": '/product/category'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Product",
+                            "link": '/products'
                         }
                     ]
                 },

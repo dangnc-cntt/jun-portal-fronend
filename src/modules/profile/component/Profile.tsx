@@ -20,6 +20,7 @@ class Profile extends Component<any, any> {
     }
 
     componentDidMount() {
+
     }
 
     public activeTab(tab: any) {
