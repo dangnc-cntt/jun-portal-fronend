@@ -46,18 +46,18 @@ class Product extends Component {
                                             {productStore.listProduct.map((item, i) => (
                                                 <tr key={i} className="position-relative">
                                                     <td>{item.id}</td>
-                                                    <td>{item.imageUrls && item.imageUrls[0]}</td>
+                                                    <td>{item.imageUrls && <img src={item.imageUrls[0]} alt=""/>}</td>
                                                     <td>{item.name}</td>
                                                     <td>{item.categoryId}</td>
-                                                    <td>{item.isHot}</td>
+                                                    <td>{item.isHot.toString()}</td>
                                                     <td>{item.state}</td>
                                                     <td width="5%" className="text-center">
                                                         <div className="btn-group">
                                                             <button type="button"
                                                                     onClick={() => productStore.getProductDetail(item.id)}
-                                                                    className="btn btn-inverse-danger btn-icon"
+                                                                    className="btn btn-inverse-warning btn-icon"
                                                                     data-toggle="modal" data-target="#editProduct">
-                                                                <i className="far fa-pen-alt"/>
+                                                                <i className="far fa-pen"/>
                                                             </button>
                                                             <button type="button"
                                                                     onClick={() => productStore.productId = item.id}

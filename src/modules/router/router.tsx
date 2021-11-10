@@ -9,6 +9,8 @@ import Category from "../category/Category";
 import Color from "../products/color/Color";
 import Size from "../products/size/Size";
 import Product from "../products/Product";
+import ExportProduct from "../products/export/ExportProduct";
+import Receipt from "../products/receipts/Receipt";
 
 export default function Redirect() {
     return (
@@ -22,6 +24,8 @@ export default function Redirect() {
             <Route path={`/product/color`} component={Color}/>
             <Route path={`/product/size`} component={Size}/>
             <Route path={`/product/category`} component={Category}/>
+            <Route path={`/product/receipt`} component={Receipt}/>
+            <Route path={`/product/export`} component={ExportProduct}/>
         </div>
     )
 }
