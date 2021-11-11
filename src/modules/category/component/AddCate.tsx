@@ -1,12 +1,47 @@
 import React, {Component} from 'react';
 import {observer} from "mobx-react";
 import {categoryStore} from "../CategoryStore";
+import {observable} from "mobx";
+import {storage} from "../../../common/firebase/firebase";
+import {productStore} from "../../products/ProductStore";
 
 
 @observer
 class AddCate extends Component {
-    
-    
+
+    @observable images: any;
+    handleChange = (e: any) => {
+        if (e.target.files[0]) {
+            this.images = e.target.files[0];
+            this.handleUpload()
+        }
+    }
+
+    handleUpload = () => {
+        const uploadTask = storage.ref(`images/${this.images.name}`).put(this.images);
+        uploadTask.on(
+            "state_changed",
+            snapshot => {
+                const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+            },
+            error => {
+                console.log(error);
+            },
+            () => {
+                storage
+                    .ref("images")
+                    .child(this.images.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        categoryStore.dataRequest.imageUrl = url;
+                    });
+            }
+        )
+    }
+
+
     render() {
         return (
             <div className="modal fade" id="addCate" tabIndex={-1} role="dialog" aria-hidden="true">
@@ -21,12 +56,9 @@ class AddCate extends Component {
                         <div className="modal-body">
                             <div className="form-group">
                                 <label>Avatar</label>
-                                <input type="text"
-                                       placeholder="Enter AvatarUrl"
-                                       className="form-control"
-                                       value={categoryStore.dataRequest.imageUrl}
-                                       onChange={(e: any) => categoryStore.dataRequest.imageUrl = e.currentTarget.value}
-                                />
+                                <img style={{width: 40, height: 40}} className="mr-2 ml-2" src={categoryStore.dataRequest.imageUrl} alt=""/>
+                                <input type="file" style={{width: 80, overflow: `hidden`}} className="mt-2"
+                                       onChange={(e: any) => this.handleChange(e)}/>
                             </div>
                             <div className="form-group">
                                 <label>Name</label>

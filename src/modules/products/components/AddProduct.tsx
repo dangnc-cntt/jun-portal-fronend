@@ -38,7 +38,7 @@ class AddProduct extends Component {
                     .child(this.images.name)
                     .getDownloadURL()
                     .then(url => {
-                        productStore.dataRequest.images.push(url);
+                        productStore.dataRequest.imageUrls.push(url);
                     });
             }
         )
@@ -97,7 +97,7 @@ class AddProduct extends Component {
                                     <div className="form-group h-auto mb-2">
                                         <label>Avatar</label>
                                         <div>
-                                            {productStore.dataRequest.images && productStore.dataRequest.images.map((value: any, i: number) => {
+                                            {productStore.dataRequest.imageUrls && productStore.dataRequest.imageUrls.map((value: any, i: number) => {
                                                 return <img style={{width: 35, height: 35}} className="mr-2 ml-2"
                                                             src={value} key={i} alt=""/>
                                             })}
@@ -128,15 +128,15 @@ class AddProduct extends Component {
                                         <select className="form-control" value={productStore.dataRequest.categoryId}
                                                 onChange={(e: any) => productStore.dataRequest.categoryId = e.currentTarget.value}>
                                             <option value="">Choose</option>
-                                            {categoryStore.listCate && categoryStore.listCate.map((value) => {
-                                                return <option value={value.id}>{value.name}</option>
+                                            {categoryStore.listCate && categoryStore.listCate.map((value, i) => {
+                                                return <option value={value.id} key={i}>{value.name}</option>
                                             })}
                                         </select>
                                     </div>
                                     <div className="form-group">
                                         <label>Options</label>
                                         <div className="w-100 d-flex align-items-center h-auto form-control">
-                                            {productStore.dataRequest.options && productStore.dataRequest.options.map((value: any, i: number) => {
+                                            {productStore.dataRequest.optionList && productStore.dataRequest.optionList.map((value: any, i: number) => {
                                                 return <div css={option} className="d-flex align-items-center justify-content-center mr-3"
                                                     key={i}>
                                                     <span>{value.color.name} - {value.size.name}</span>

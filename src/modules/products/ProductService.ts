@@ -9,7 +9,7 @@ class ProductService{
     }
 
     public productDetail(id: number): Promise<IApiResponse> {
-        return getRequest(`/v1/portal/products${id}`);
+        return getRequest(`/v1/portal/products/${id}`);
     }
 
     public addProduct(data: any): Promise<IApiResponse> {

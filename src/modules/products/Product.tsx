@@ -5,6 +5,7 @@ import NoContent from "../../common/component/NoContent";
 import {productStore} from "./ProductStore";
 import DeleteProduct from "./components/DeleteProduct";
 import AddProduct from "./components/AddProduct";
+import EditProduct from "./components/EditProduct";
 
 
 @observer
@@ -22,7 +23,7 @@ class Product extends Component {
                     <div className=" d-flex align-items-center justify-content-between mt-2 mb-3">
                         <div className="pl-2 pr-2 w-100 d-flex align-items-center justify-content-between">
                             <h3 className="mb-0">Product</h3>
-                            <button type="button" className="btn btn-outline-info" data-toggle="modal" data-target="#addProduct">Create</button>
+                            <button type="button" className="btn btn-outline-info" data-toggle="modal" data-target="#addProduct" onClick={() => productStore.clearForm()}>Create</button>
                         </div>
                     </div>
                     <div className="card">
@@ -77,6 +78,7 @@ class Product extends Component {
                         </div>
                     </div>
                     <AddProduct/>
+                    <EditProduct/>
                     <DeleteProduct/>
                 </div>
             </div>

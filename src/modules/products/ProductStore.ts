@@ -13,7 +13,7 @@ class ProductStore{
     @observable isLoading: boolean = false;
     @observable productInfo: any;
     @observable dataRequest: any = {
-        images: [],
+        imageUrls: [],
         name: '',
         state: '',
         code: '',
@@ -23,10 +23,28 @@ class ProductStore{
         isHot: false,
         categoryId: '',
         description: '',
-        options: [],
+        optionList: [],
         color: 0,
         size: 0
     };
+
+    clearForm(){
+        this.dataRequest = {
+            imageUrls: [],
+            name: '',
+            state: '',
+            code: '',
+            costPrice: 0,
+            price: 0,
+            discount: 0,
+            isHot: false,
+            categoryId: '',
+            description: '',
+            optionList: [],
+            color: 0,
+            size: 0
+        };
+    }
 
     async getProduct(){
         this.isLoading = true;
@@ -42,12 +60,12 @@ class ProductStore{
         const result = await productService.productDetail(id)
         this.isLoading = false;
         if(result.status === 200){
-            this.productInfo = result.body;
+            this.dataRequest = result.body;
         }
     }
 
     async addProduct(){
-        let {name, isHot, description, state, categoryId, discount, costPrice, images, code, price, options} = this.dataRequest;
+        let {name, isHot, description, state, categoryId, discount, costPrice, imageUrls, code, price, optionList} = this.dataRequest;
         if(!name) {
             toastUtil.warning('Vui lòng nhập Name');
             return false;
@@ -60,11 +78,11 @@ class ProductStore{
             description: description,
             state: state,
             discount: discount,
-            imageUrls: images,
+            imageUrls: imageUrls,
             costPrice: costPrice,
             price: price,
             categoryId: categoryId,
-            optionList: options
+            optionList: optionList
         }
 
         const result = await productService.addProduct(data);
