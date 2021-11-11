@@ -17,7 +17,7 @@ class ProductService{
     }
 
     public editProduct(id: any, data: any): Promise<IApiResponse> {
-        return postRequest(`/v1/portal/products/${id}`, data);
+        return putRequest(`/v1/portal/products/${id}`, data);
     }
 
     public deleteProduct(id: any): Promise<IApiResponse> {

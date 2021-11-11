@@ -82,7 +82,7 @@ class Category extends Component {
                                             {categoryStore.listCate.map((item, i) => (
                                                 <tr key={i} className="position-relative">
                                                     <td>{item.id}</td>
-                                                    <td>{item.imageUrl}</td>
+                                                    <td><img src={item.imageUrl} alt=""/></td>
                                                     <td width="20%">{item.name}</td>
                                                     <td>{item.description}</td>
                                                     <td>{item.createdAt ? getLocalDateTime(item.createdAt, 'dd/mm/yyyy') : ''}</td>

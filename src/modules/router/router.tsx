@@ -11,6 +11,10 @@ import Size from "../products/size/Size";
 import Product from "../products/Product";
 import ExportProduct from "../products/export/ExportProduct";
 import Receipt from "../products/receipts/Receipt";
+import AddReceipt from "../products/receipts/components/AddReceipt";
+import DetailReceipt from "../products/receipts/components/DetailReceipt";
+import DetailExport from "../products/export/components/DetailExport";
+import AddExport from "../products/export/components/AddExport";
 
 export default function Redirect() {
     return (
@@ -25,7 +29,11 @@ export default function Redirect() {
             <Route path={`/product/size`} component={Size}/>
             <Route path={`/product/category`} component={Category}/>
             <Route path={`/product/receipt`} component={Receipt}/>
+            <Route path={`/product/add-receipt`} component={AddReceipt}/>
+            <Route path={`/product/receipt-detail`} component={DetailReceipt}/>
             <Route path={`/product/export`} component={ExportProduct}/>
+            <Route path={`/product/add-export`} component={AddExport}/>
+            <Route path={`/product/export-detail`} component={DetailExport}/>
         </div>
     )
 }

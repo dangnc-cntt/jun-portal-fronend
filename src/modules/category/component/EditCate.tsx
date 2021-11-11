@@ -52,9 +52,9 @@ class EditCate extends Component {
                         </div>
                         <div className="modal-body">
                             <div className="form-group">
-                                <label>Avatar</label>
-                                <img style={{width: 40, height: 40}} className="mr-2 ml-2" src={categoryStore.dataRequest.imageUrl} alt=""/>
-                                <input type="file" style={{width: 80, overflow: `hidden`}} className="mt-2"
+                                <label>Image</label>
+                                <img style={{width: 45, height: 45}} className="mr-4 ml-4" src={categoryStore.dataRequest.imageUrl} alt=""/>
+                                <input type="file" style={{width: 95, overflow: `hidden`}} className="mt-2"
                                        onChange={(e: any) => this.handleChange(e)}/>
                             </div>
                             <div className="form-group">

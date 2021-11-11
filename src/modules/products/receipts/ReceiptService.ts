@@ -15,6 +15,9 @@ class ReceiptService {
         return postRequest(`/v1/warehouse/receipts`, data)
     }
 
+    public optionList(id: any): Promise<IApiResponse>{
+        return getRequest(`/v1/portal/products/option/${id}`)
+    }
 }
 
 export const receiptService = new ReceiptService();

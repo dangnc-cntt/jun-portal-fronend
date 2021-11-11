@@ -96,6 +96,39 @@ class ProductStore{
         }
     }
 
+    async editProduct(){
+        let {id, name, isHot, description, state, categoryId, discount, costPrice, imageUrls, code, price, optionList} = this.dataRequest;
+        if(!name) {
+            toastUtil.warning('Vui lòng nhập Name');
+            return false;
+        }
+
+        let data = {
+            code: code,
+            name: name,
+            isHot: isHot,
+            description: description,
+            state: state,
+            discount: discount,
+            imageUrls: imageUrls,
+            costPrice: costPrice,
+            price: price,
+            categoryId: categoryId,
+            optionList: optionList
+        }
+
+        const result = await productService.editProduct(id, data);
+
+        if(result.status === HttpStatusCode.OK){
+            await this.getProduct();
+            $('#close_edit').trigger("click")
+            toastUtil.success('Edit product success')
+        }else {
+            toastUtil.error(result.body.message);
+        }
+    }
+
+
 
     async deleteProduct(){
         const result = await colorService.deleteColor(this.productId);

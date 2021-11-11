@@ -15,7 +15,6 @@ class ExportService {
         return postRequest(`/v1/warehouse/exports`, data)
     }
 
-
 }
 
 export const exportService = new ExportService();

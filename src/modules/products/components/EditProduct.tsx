@@ -86,7 +86,7 @@ class EditProduct extends Component {
                     <div className="modal-content" style={{maxWidth: 1200}}>
                         <div className="modal-header">
                             <h3 className="mb-0">Edit Product</h3>
-                            <button type="button" id="close_add" className="close" data-dismiss="modal"
+                            <button type="button" id="close_edit" className="close" data-dismiss="modal"
                                     aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -102,7 +102,7 @@ class EditProduct extends Component {
                                                             src={value} key={i} alt=""/>
                                             })}
                                         </div>
-                                        <input type="file" style={{width: 80, overflow: `hidden`}} className="mt-2"
+                                        <input type="file" style={{width: 95, overflow: `hidden`}} className="mt-2"
                                                onChange={(e: any) => this.handleChange(e)}/>
                                     </div>
                                     <div className="form-group mt-2">
@@ -183,6 +183,15 @@ class EditProduct extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
+                                        <label>Price</label>
+                                        <input type="text"
+                                               placeholder="Enter Price"
+                                               className="form-control"
+                                               value={productStore.dataRequest.price}
+                                               onChange={(e: any) => productStore.dataRequest.price = e.currentTarget.value}
+                                        />
+                                    </div>
+                                    <div className="form-group">
                                         <label>CostPrice</label>
                                         <input type="text"
                                                placeholder="Enter Cost Price"
@@ -223,8 +232,8 @@ class EditProduct extends Component {
                         </div>
                         <div className="modal-footer border-top-0 pt-0">
                             <button type="button" className="btn" data-dismiss="modal">Cancel</button>
-                            <button type="button" onClick={() => productStore.addProduct()}
-                                    className="btn btn-info">Create
+                            <button type="button" onClick={() => productStore.editProduct()}
+                                    className="btn btn-info">Update
                             </button>
                         </div>
                     </div>

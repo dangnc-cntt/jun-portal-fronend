@@ -102,7 +102,7 @@ class AddProduct extends Component {
                                                             src={value} key={i} alt=""/>
                                             })}
                                         </div>
-                                        <input type="file" style={{width: 80, overflow: `hidden`}} className="mt-2"
+                                        <input type="file" style={{width: 95, overflow: `hidden`}} className="mt-2"
                                                onChange={(e: any) => this.handleChange(e)}/>
                                     </div>
                                     <div className="form-group mt-2">
@@ -180,6 +180,15 @@ class AddProduct extends Component {
                                                className="form-control"
                                                value={productStore.dataRequest.description}
                                                onChange={(e: any) => productStore.dataRequest.description = e.currentTarget.value}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Price</label>
+                                        <input type="text"
+                                               placeholder="Enter Price"
+                                               className="form-control"
+                                               value={productStore.dataRequest.price}
+                                               onChange={(e: any) => productStore.dataRequest.price = e.currentTarget.value}
                                         />
                                     </div>
                                     <div className="form-group">

@@ -52,13 +52,13 @@ class CategoryStore {
     }
     
     async addCate(){
-        let { name, avatarUrl, description, state} = this.dataRequest;
+        let { name, imageUrl, description, state} = this.dataRequest;
 
         if(!name) {
             toastUtil.warning('Vui lòng nhập Name');
             return false;
         }
-        if(!avatarUrl) {
+        if(!imageUrl) {
             toastUtil.warning('Vui lòng chọn AvatarUrl');
             return false;
         }
@@ -84,13 +84,13 @@ class CategoryStore {
 
 
     async editCate(){
-        let {id, name, avatarUrl, description, state} = this.dataRequest;
+        let {id, name, imageUrl, description, state} = this.dataRequest;
 
         if(!name) {
             toastUtil.warning('Vui lòng nhập Name');
             return false;
         }
-        if(!avatarUrl) {
+        if(!imageUrl) {
             toastUtil.warning('Vui lòng chọn AvatarUrl');
             return false;
         }
