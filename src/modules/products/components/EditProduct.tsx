@@ -20,6 +20,13 @@ class EditProduct extends Component {
         }
     }
 
+    constructor(props: any) {
+        super(props);
+        this.state = {
+
+        }
+    }
+
     handleUpload = () => {
         const uploadTask = storage.ref(`images/${this.images.name}`).put(this.images);
         uploadTask.on(
@@ -38,7 +45,7 @@ class EditProduct extends Component {
                     .child(this.images.name)
                     .getDownloadURL()
                     .then(url => {
-                        productStore.dataRequest.images.push(url);
+                        productStore.dataRequest.imageUrls.push(url);
                     });
             }
         )

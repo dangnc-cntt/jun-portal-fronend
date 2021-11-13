@@ -131,7 +131,7 @@ class ProductStore{
 
 
     async deleteProduct(){
-        const result = await colorService.deleteColor(this.productId);
+        const result = await productService.deleteProduct(this.productId);
         if(result.status === HttpStatusCode.OK){
             this.listProduct.map((value, i) => {
                 if(value.id === this.productId){

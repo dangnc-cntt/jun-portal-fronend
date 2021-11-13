@@ -15,34 +15,35 @@ class ReceiptStore {
     }
     @observable listOption: any[] = [];
 
-    async getOptionList(id: number){
+    async getOptionList(id: number) {
         const result = await receiptService.optionList(id);
-        if(result.status === 200){
+        if (result.status === 200) {
             this.listOption = result.body;
         }
     }
 
-    async getReceipt(){
+
+    async getReceipt() {
         this.isLoading = true;
         const result = await receiptService.getReceipt()
         this.isLoading = false;
-        if(result.status === 200){
+        if (result.status === 200) {
             this.listReceipt = result.body.data;
             this.totalPages = result.body.metadata.totalPages;
         }
     }
 
 
-    async detailReceipt(id: any){
+    async detailReceipt(id: any) {
         this.isLoading = true;
         const result = await receiptService.detailReceipt(id)
         this.isLoading = false;
-        if(result.status === 200){
+        if (result.status === 200) {
             this.receiptDetail = result.body;
         }
     }
 
-    async addReceipt(){
+    async addReceipt() {
         let products: any[] = [];
         receiptStore.dataRequest.products.map((value: any) => {
             products.push({
@@ -60,9 +61,11 @@ class ReceiptStore {
         this.isLoading = true;
         const result = await receiptService.addReceipt(data)
         this.isLoading = false;
-        if(result.status === 200){
+        if (result.status === 200) {
             toastUtil.success('Add Receipt success')
-            setTimeout(() => {window.location.href = "/product/receipt"}, 2000)
+            setTimeout(() => {
+                window.location.href = "/product/receipt"
+            }, 2000)
         }
     }
 }

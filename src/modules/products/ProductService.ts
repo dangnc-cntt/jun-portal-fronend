@@ -21,7 +21,7 @@ class ProductService{
     }
 
     public deleteProduct(id: any): Promise<IApiResponse> {
-        return deleteRequest(`/v1/portal/product/${id}`, {});
+        return deleteRequest(`/v1/portal/products/${id}`, {});
     }
 }
 

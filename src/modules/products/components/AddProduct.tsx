@@ -72,7 +72,7 @@ class AddProduct extends Component {
             }
         })
 
-        productStore.dataRequest.options.push({color: color, size: size})
+        productStore.dataRequest.optionList.push({color: color, size: size})
 
         productStore.dataRequest.color = "";
         productStore.dataRequest.size = "";
@@ -102,7 +102,7 @@ class AddProduct extends Component {
                                                             src={value} key={i} alt=""/>
                                             })}
                                         </div>
-                                        <input type="file" style={{width: 95, overflow: `hidden`}} className="mt-2"
+                                        <input type="file" style={{width: 86, overflow: `hidden`}} className="mt-2"
                                                onChange={(e: any) => this.handleChange(e)}/>
                                     </div>
                                     <div className="form-group mt-2">
