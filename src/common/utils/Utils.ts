@@ -56,7 +56,7 @@ export function format_slice(str: number) {
 }
 
 
-export function getLocalDateTime(_date: number | string, format: "dd_mm_yyyy" | "dd/mm/yyyy" | "dd-mm-yyyy" | "dd-mm-yyyy, hh:m_m:ss" | "dd/mm/yyyy, hh:m_m" | "yyyy/mm/dd, hh:m_m" | "yyyy-mm-dd hh:m_m:ss" | "yyyy-mm-dd") {
+export function getLocalDateTime(_date: number | string, format: "dd_mm_yyyy" | "dd/mm/yyyy" | "dd-mm-yyyy" | "dd-mm-yyyy, hh:m_m:ss" | "dd/mm/yyyy, hh:m_m" | "yyyy/mm/dd hh:m_m" | "yyyy-mm-dd hh:m_m:ss" | "yyyy-mm-dd") {
     const date = new Date(_date);
     const D = date.getDate();
     const hh = date.getHours();

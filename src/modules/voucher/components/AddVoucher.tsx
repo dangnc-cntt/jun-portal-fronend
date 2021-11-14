@@ -42,7 +42,7 @@ class AddVoucher extends Component {
     }
 
     changeDate = (date: Date) => {
-        voucherStore.dataRequest.date = date;
+        voucherStore.dataRequest.expiryDate = date;
     }
 
     render() {

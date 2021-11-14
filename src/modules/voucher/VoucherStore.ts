@@ -2,7 +2,9 @@ import {action, observable} from "mobx";
 import {voucherService} from "./VoucherService";
 import HttpStatusCode from "../../common/constants/HttpErrorCode";
 import {toastUtil} from "../../common/utils/ToastUtil";
-import $ from "jquery"
+import $ from "jquery";
+import {getLocalDateTime} from "../../common/utils/Utils";
+
 
 interface IDataRequest{
     id?: number,
@@ -13,7 +15,7 @@ interface IDataRequest{
     description: string,
     type: string,
     state: string,
-    date: any
+    expiryDate: any
 }
 
 
@@ -29,7 +31,7 @@ class VoucherStore {
         description: '',
         type: '',
         state: '',
-        date: ''
+        expiryDate: ''
     };
 
 
@@ -44,6 +46,7 @@ class VoucherStore {
         const result = await voucherService.detailVoucher(id);
 
         if(result.status === HttpStatusCode.OK){
+            result.body.expiryDate = getLocalDateTime(result.body.expiryDate, "yyyy/mm/dd hh:m_m");
             this.dataRequest = result.body;
         }else {
             toastUtil.error(result.body.message);
@@ -51,7 +54,7 @@ class VoucherStore {
     }
 
     async add(){
-        let  {code, description, discount, date, imageUrl, name, state, type} = this.dataRequest;
+        let  {code, description, discount, expiryDate, imageUrl, name, state, type} = this.dataRequest;
 
         if(!name) {
             toastUtil.warning("Vui lòng nhập name!")
@@ -69,7 +72,7 @@ class VoucherStore {
             toastUtil.warning("Vui lòng chọn image!")
             return false;
         }
-        if(!date) {
+        if(!expiryDate) {
             toastUtil.warning("Vui lòng chọn expiryDate!")
             return false;
         }
@@ -86,12 +89,12 @@ class VoucherStore {
             return false;
         }
 
-        let data: IDataRequest = {
+        let data: any = {
             name: name,
             type: type,
             state: state,
             imageUrl: imageUrl,
-            date: date,
+            date: expiryDate,
             discount: discount,
             description: description,
             code: code
@@ -108,7 +111,7 @@ class VoucherStore {
     }
 
     async edit(){
-        let  {id, code, description, discount, date, imageUrl, name, state, type} = this.dataRequest;
+        let  {id, code, description, discount, expiryDate, imageUrl, name, state, type} = this.dataRequest;
 
         if(!name) {
             toastUtil.warning("Vui lòng nhập name!")
@@ -126,7 +129,7 @@ class VoucherStore {
             toastUtil.warning("Vui lòng chọn image!")
             return false;
         }
-        if(!date) {
+        if(!expiryDate) {
             toastUtil.warning("Vui lòng chọn expiryDate!")
             return false;
         }
@@ -143,12 +146,12 @@ class VoucherStore {
             return false;
         }
 
-        let data: IDataRequest = {
+        let data: any = {
             name: name,
             type: type,
             state: state,
             imageUrl: imageUrl,
-            date: date,
+            date: expiryDate,
             discount: discount,
             description: description,
             code: code
@@ -163,7 +166,7 @@ class VoucherStore {
                    value.name = name;
                    value.code = code;
                    value.imageUrl = imageUrl;
-                   value.date = date;
+                   value.expiryDate = expiryDate;
                    value.type = type;
                    value.state = state;
                    value.description = description;

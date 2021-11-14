@@ -7,7 +7,9 @@ interface DateSingleProps {
     selected?: Date,
     minDate?: Date,
     disabled?: boolean,
-    onChange?: any
+    onChange?: any,
+    format?: any,
+    timePicker?: boolean
 }
 
 @observer
@@ -25,10 +27,11 @@ class DateSingle extends Component<DateSingleProps, any>{
 
         return (
             <DatePicker
+                showTimeSelect={this.props.timePicker ? this.props.timePicker : false}
                 selected={this.props.selected != null ? this.props.selected : new Date()}
                 minDate={this.props.minDate}
                 disabled={this.props.disabled}
-                dateFormat={"yyyy-MM-dd"}
+                dateFormat={this.props.format ? this.props.format : "yyyy-MM-dd"}
                 onChange={this.handleChangeTime}/>
         )
     }

@@ -42,7 +42,7 @@ class Voucher extends Component {
                                                 <th><strong>Type</strong></th>
                                                 <th><strong>State</strong></th>
                                                 <th><strong>ExpiryDate</strong></th>
-                                                <th><strong>Actions</strong></th>
+                                                <th className="text-center"><strong>Actions</strong></th>
                                             </tr>
                                             </thead>
                                             <tbody>

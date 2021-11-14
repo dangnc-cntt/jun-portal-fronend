@@ -4,7 +4,6 @@ import {observable} from "mobx";
 import {storage} from "../../../common/firebase/firebase";
 import {voucherStore} from "../VoucherStore";
 import DatePickerSingle from "../../../common/component/DatePickerSingle";
-import {getLocalDateTime} from "../../../common/utils/Utils";
 
 
 @observer
@@ -44,7 +43,7 @@ class EditVoucher extends Component {
 
 
     changeDate = (date: Date) => {
-        voucherStore.dataRequest.date = date;
+        voucherStore.dataRequest.expiryDate = date;
     }
 
     render() {
@@ -103,8 +102,7 @@ class EditVoucher extends Component {
                                 <div className="col-6">
                                     <div className="form-group">
                                         <label>Expiry Date</label>
-                                        <DatePickerSingle timePicker={true}
-                                                          format="YYYY/MM/DD hh:mm"
+                                        <DatePickerSingle timePicker={true} format="YYYY/MM/DD hh:mm"
                                                           onChange={this.changeDate}/>
                                     </div>
                                     <div className="form-group">
