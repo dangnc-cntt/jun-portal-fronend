@@ -3,7 +3,6 @@ import {observer} from "mobx-react";
 import Loading from "../../common/component/Loading";
 import NoContent from "../../common/component/NoContent";
 import {productStore} from "./ProductStore";
-import DeleteProduct from "./components/DeleteProduct";
 import AddProduct from "./components/AddProduct";
 import EditProduct from "./components/EditProduct";
 

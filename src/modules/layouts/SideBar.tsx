@@ -56,6 +56,19 @@ class SideBar extends Component {
                 },
                 {
                     "id": 0,
+                    "name": "Voucher",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/voucher'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Voucher",
+                            "link": '/voucher'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
                     "name": "Product",
                     "icon": "fas fa-user-friends",
                     "rootMenu": ['/product/category', '/product/color', '/product/size', '/product/export','/products'],

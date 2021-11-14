@@ -15,6 +15,7 @@ import AddReceipt from "../products/receipts/components/AddReceipt";
 import DetailReceipt from "../products/receipts/components/DetailReceipt";
 import DetailExport from "../products/export/components/DetailExport";
 import AddExport from "../products/export/components/AddExport";
+import Voucher from "../voucher/Voucher";
 
 export default function Redirect() {
     return (
@@ -29,11 +30,13 @@ export default function Redirect() {
             <Route path={`/product/size`} component={Size}/>
             <Route path={`/product/category`} component={Category}/>
             <Route path={`/product/receipt`} component={Receipt}/>
+            <Route path={`/product/detail-receipt/:id.html`} component={DetailReceipt}/>
             <Route path={`/product/add-receipt`} component={AddReceipt}/>
             <Route path={`/product/receipt-detail`} component={DetailReceipt}/>
             <Route path={`/product/export`} component={ExportProduct}/>
             <Route path={`/product/add-export`} component={AddExport}/>
-            <Route path={`/product/export-detail`} component={DetailExport}/>
+            <Route path={`/product/detail-export/:id.html`} component={DetailExport}/>
+            <Route path={`/voucher`} component={Voucher}/>
         </div>
     )
 }

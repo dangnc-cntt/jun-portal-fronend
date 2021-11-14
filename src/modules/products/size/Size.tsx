@@ -5,6 +5,7 @@ import NoContent from "../../../common/component/NoContent";
 import {sizeStore} from "./SizeStore";
 import AddSize from "./component/AddSize";
 import DeleteSize from "./component/DeleteSize";
+import {getLocalDateTime} from "../../../common/utils/Utils";
 
 
 @observer
@@ -34,24 +35,15 @@ class Size extends Component {
                                             <tr>
                                                 <th><strong>Id</strong></th>
                                                 <th><strong>Name</strong></th>
-                                                {/*<th className="text-center"><strong>Actions</strong></th>*/}
+                                                <th><strong>CreatedAt</strong></th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             {sizeStore.listSize.map((item, i) => (
                                                 <tr key={i} className="position-relative">
-                                                    <td width="18%">{item.id}</td>
-                                                    <td width="40%">{item.name}</td>
-                                                    {/*<td width="5%" className="text-center">*/}
-                                                    {/*    <div className="btn-group">*/}
-                                                    {/*        <button type="button"*/}
-                                                    {/*                onClick={() => sizeStore.sizeId = item.id}*/}
-                                                    {/*                className="btn btn-inverse-danger btn-icon"*/}
-                                                    {/*                data-toggle="modal" data-target="#deleteSize">*/}
-                                                    {/*            <i className="far fa-trash-alt"/>*/}
-                                                    {/*        </button>*/}
-                                                    {/*    </div>*/}
-                                                    {/*</td>*/}
+                                                    <td width="30%">{item.id}</td>
+                                                    <td width="50%">{item.name}</td>
+                                                    <td width="20%">{item.createdAt ? getLocalDateTime(item.createdAt, "dd/mm/yyyy") : "10/11/2021"}</td>
                                                 </tr>
                                             ))}
                                             </tbody>

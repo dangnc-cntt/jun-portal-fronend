@@ -4,7 +4,7 @@ import Loading from "../../../common/component/Loading";
 import NoContent from "../../../common/component/NoContent";
 import {exportStore} from "./ExportStore";
 import {Link} from "react-router-dom";
-import {productStore} from "../ProductStore";
+import {getLocalDateTime} from "../../../common/utils/Utils";
 
 
 @observer
@@ -45,12 +45,12 @@ class ExportProduct extends Component {
                                                 <tr key={i} className="position-relative">
                                                     <td width="10%">{item.id}</td>
                                                     <td width="20%">{item.description}</td>
-                                                    <td>{item.createdAt}</td>
-                                                    <td>{item.updatedAt}</td>
+                                                    <td>{getLocalDateTime(item.createdAt, "dd/mm/yyyy, hh:m_m")}</td>
+                                                    <td>{getLocalDateTime(item.updatedAt, "dd/mm/yyyy, hh:m_m")}</td>
                                                     <td className="text-center">
-                                                        <Link to={`/product/add-export`}>
-                                                            <button type="button" onClick={() => productStore.getProductDetail(item.id)}
-                                                                                                  className="btn btn-inverse-warning btn-icon">
+                                                        <Link to={`/product/detail-export/${item.id}.html`}><button type="button"
+                                                                                                                     onClick={() => exportStore.detailExport(item.id)}
+                                                                                                                     className="btn btn-inverse-warning btn-icon">
                                                             <i className="fal fa-info"/>
                                                         </button></Link>
                                                     </td>
