@@ -23,6 +23,14 @@ class VoucherStore {
     @observable public isLoading: boolean = false;
     @observable public voucherId: number = 0;
     @observable public listVoucher: any[] = [];
+    @observable public paramsAddVoucher: {
+        id: any, type: string, accountIds: any[]
+    } = {
+        id: '',
+        type: '',
+        accountIds: []
+    };
+
     @observable public dataRequest: IDataRequest = {
         imageUrl: "",
         name: "",
@@ -52,6 +60,18 @@ class VoucherStore {
             toastUtil.error(result.body.message);
         }
     }
+
+    async addVoucherUser(){
+        let {id, type, accountIds} = this.paramsAddVoucher;
+
+        const result = await voucherService.addVoucherUser(id, type, accountIds);
+
+        if(result.status === 200){
+            toastUtil.success('Add voucher user success');
+            $('#close_add_voucher_user').trigger("click")
+        }
+    }
+
 
     async add(){
         let  {code, description, discount, expiryDate, imageUrl, name, state, type} = this.dataRequest;

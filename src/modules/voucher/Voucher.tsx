@@ -7,6 +7,7 @@ import {voucherStore} from "./VoucherStore";
 import AddVoucher from "./components/AddVoucher";
 import EditVoucher from "./components/EditVoucher";
 import DeleteVoucher from "./components/DeleteVoucher";
+import AddVoucherUser from "./components/AddVoucherUser";
 
 @observer
 class Voucher extends Component {
@@ -22,7 +23,9 @@ class Voucher extends Component {
                     <div className=" d-flex align-items-center justify-content-between mt-2 mb-3">
                         <div className="pl-2 pr-2 w-100 d-flex align-items-center justify-content-between">
                             <h3 className="mb-0">Voucher</h3>
-                            <button type="button" className="btn btn-outline-info" data-toggle="modal" data-target="#addVoucher">Create</button>
+                           <div className="d-flex">
+                               <button type="button" className="btn btn-outline-info" data-toggle="modal" data-target="#addVoucher">Create</button>
+                           </div>
                         </div>
                     </div>
                     <div className="card">
@@ -59,6 +62,12 @@ class Voucher extends Component {
                                                     <td>{item.expiryDate && getLocalDateTime(item.expiryDate, "dd/mm/yyyy, hh:m_m")}</td>
                                                     <td className="text-center">
                                                         <button type="button"
+                                                                onClick={() => voucherStore.voucherId = item.id}
+                                                                className="btn btn-inverse-info btn-icon"
+                                                                data-toggle="modal" data-target="#addVoucherUser">
+                                                            <i className="fal fa-gift"/>
+                                                        </button>
+                                                        <button type="button"
                                                                 onClick={() => voucherStore.detail(item.id)}
                                                                 className="btn btn-inverse-warning btn-icon"
                                                                 data-toggle="modal" data-target="#editVoucher">
@@ -81,6 +90,7 @@ class Voucher extends Component {
                         </div>
                     </div>
                     <AddVoucher/>
+                    <AddVoucherUser/>
                     <EditVoucher/>
                     <DeleteVoucher/>
                 </div>

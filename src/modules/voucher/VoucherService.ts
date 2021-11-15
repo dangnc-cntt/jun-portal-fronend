@@ -15,6 +15,10 @@ class VoucherService {
         return postRequest(`/v1/portal/vouchers`, data);
     }
 
+    public addVoucherUser(id: any, type: any, accountIds: any[]): Promise<IApiResponse> {
+        return postRequest(`/v1/portal/vouchers/give/${id}?type=${type}`, accountIds);
+    }
+
     public editVoucher(id: any, data: any): Promise<IApiResponse> {
         return putRequest(`/v1/portal/vouchers/${id}`, data);
     }
