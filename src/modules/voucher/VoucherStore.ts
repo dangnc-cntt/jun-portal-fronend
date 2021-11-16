@@ -23,10 +23,8 @@ class VoucherStore {
     @observable public isLoading: boolean = false;
     @observable public voucherId: number = 0;
     @observable public listVoucher: any[] = [];
-    @observable public paramsAddVoucher: {
-        id: any, type: string, accountIds: any[]
+    @observable public paramsAddVoucher: {type: string, accountIds: any[]
     } = {
-        id: '',
         type: '',
         accountIds: []
     };
@@ -62,13 +60,15 @@ class VoucherStore {
     }
 
     async addVoucherUser(){
-        let {id, type, accountIds} = this.paramsAddVoucher;
+        let {type, accountIds} = this.paramsAddVoucher;
 
-        const result = await voucherService.addVoucherUser(id, type, accountIds);
+        const result = await voucherService.addVoucherUser(this.voucherId, type, accountIds);
 
         if(result.status === 200){
             toastUtil.success('Add voucher user success');
-            $('#close_add_voucher_user').trigger("click")
+            $('#close_add_voucher_user').trigger("click");
+            voucherStore.paramsAddVoucher.accountIds = [];
+            voucherStore.paramsAddVoucher.type = '';
         }
     }
 

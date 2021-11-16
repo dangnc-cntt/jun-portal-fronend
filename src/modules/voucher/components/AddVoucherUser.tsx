@@ -2,18 +2,39 @@ import React, {Component} from 'react';
 import {voucherStore} from "../VoucherStore";
 import {observer} from "mobx-react";
 import Select from "react-select";
-
+import {voucherService} from "../VoucherService";
+import HttpStatusCode from "../../../common/constants/HttpErrorCode";
+import {observable} from "mobx";
+import {accountService} from "../../account/AccountService";
+import {toastUtil} from "../../../common/utils/ToastUtil";
 
 
 @observer
 class AddVoucherUser extends Component {
+    @observable listUser: any[] = [];
+    @observable totalPages: any[] = [];
 
-   async componentDidMount() {
-
+    async componentDidMount() {
+       await this.getUser();
     }
 
-    changeSelect(e: any){
+    async getUser() {
+        const result = await accountService.getAccount();
+        if (result.status === HttpStatusCode.OK) {
+            this.totalPages = result.body.metadata.totalPages;
+            result.body.data.map((value: any) => {
+                return this.listUser.push({
+                    value: value.id,
+                    label: value.fullName
+                })
+            })
+        } else {
+            toastUtil.error(result.body.message ? result.body.message : 'Get list user false.');
+        }
+    }
 
+    changeSelect(value: any[]) {
+        voucherStore.paramsAddVoucher.accountIds = value && value.map(item => item.value)
     }
 
     render() {
@@ -41,19 +62,19 @@ class AddVoucherUser extends Component {
                             </div>
                             {voucherStore.paramsAddVoucher.type === "LIST" && <div className="form-group">
                                 <label>User</label>
-                                {/*<Select*/}
-                                {/*    onChange={(data: any) => changeSelect(data)}*/}
-                                {/*    isMulti*/}
-                                {/*    isClearable*/}
-                                {/*    isSearchable*/}
-                                {/*    options={item.options}*/}
-                                {/*    classNamePrefix="select"*/}
-                                {/*    menuPortalTarget={document.body}*/}
-                                {/*    styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}*/}
-                                {/*    menuPosition={'fixed'}*/}
-                                {/*    menuPlacement={'auto'}*/}
-                                {/*    menuShouldScrollIntoView={false}*/}
-                                {/*/>*/}
+                                <Select
+                                    onChange={(data: any) => this.changeSelect(data)}
+                                    isMulti
+                                    isClearable
+                                    isSearchable
+                                    options={this.listUser}
+                                    classNamePrefix="select"
+                                    menuPortalTarget={document.body}
+                                    styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                                    menuPosition={'fixed'}
+                                    menuPlacement={'auto'}
+                                    menuShouldScrollIntoView={false}
+                                />
                             </div>}
                         </div>
                         <div className="modal-footer border-top-0 pt-0">
