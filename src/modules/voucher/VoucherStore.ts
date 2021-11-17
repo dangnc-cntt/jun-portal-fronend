@@ -29,6 +29,7 @@ class VoucherStore {
         accountIds: []
     };
 
+
     @observable public dataRequest: IDataRequest = {
         imageUrl: "",
         name: "",
