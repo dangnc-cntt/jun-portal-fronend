@@ -1,10 +1,11 @@
 import {deleteRequest, getRequest, IApiResponse, postRequest, putRequest} from "../../common/helpers/RequestHelper";
+import {voucherStore} from "./VoucherStore";
 
 
 class VoucherService {
 
     public getVoucher(): Promise<IApiResponse> {
-        return getRequest(`/v1/portal/vouchers`);
+        return getRequest(`/v1/portal/vouchers?page=${voucherStore.page}&size=10${voucherStore.searchName ? `&name=${voucherStore.searchName}` : ''}${voucherStore.code ? `&code=${voucherStore.code}` : ''}`);
     }
 
     public detailVoucher(id: any): Promise<IApiResponse> {

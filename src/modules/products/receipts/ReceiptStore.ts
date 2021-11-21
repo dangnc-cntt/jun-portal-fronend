@@ -1,6 +1,7 @@
 import {observable} from "mobx";
 import {receiptService} from "./ReceiptService";
 import {toastUtil} from "../../../common/utils/ToastUtil";
+import {getDateString, getToDay, minusDays} from "../../../common/utils/Utils";
 
 class ReceiptStore {
     @observable isLoading: boolean = false;
@@ -14,6 +15,9 @@ class ReceiptStore {
         products: []
     }
     @observable listOption: any[] = [];
+    @observable public gte: Date =  minusDays(getToDay(), 30);
+    @observable public lte: Date = getToDay();
+
 
     async getOptionList(id: number) {
         const result = await receiptService.optionList(id);
@@ -24,8 +28,10 @@ class ReceiptStore {
 
 
     async getReceipt() {
+        const gte = this.gte ? getDateString(this.gte) : "";
+        const lte = this.lte ? getDateString(this.lte) : "";
         this.isLoading = true;
-        const result = await receiptService.getReceipt()
+        const result = await receiptService.getReceipt(gte, lte)
         this.isLoading = false;
         if (result.status === 200) {
             this.listReceipt = result.body.data;

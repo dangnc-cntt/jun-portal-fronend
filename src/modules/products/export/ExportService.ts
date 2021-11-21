@@ -3,8 +3,8 @@ import {exportStore} from "./ExportStore";
 
 class ExportService {
 
-    public getExport(): Promise<IApiResponse> {
-        return getRequest(`/v1/warehouse/exports?page=${exportStore.page}&size=10`)
+    public getExport(gte: any, lte: any): Promise<IApiResponse> {
+        return getRequest(`/v1/warehouse/exports?page=${exportStore.page}&size=10${gte ? `&gte=${gte}` : ''}${lte ? `&lte=${lte}` : ''}`);
     }
 
     public detailExport(id: number): Promise<IApiResponse>{

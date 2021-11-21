@@ -5,6 +5,9 @@ import NoContent from "../../common/component/NoContent";
 import {productStore} from "./ProductStore";
 import AddProduct from "./components/AddProduct";
 import EditProduct from "./components/EditProduct";
+import {categoryStore} from "../category/CategoryStore";
+import {requestUtils} from "../../common/utils/RequestUtil";
+import ReactPaginate from "react-paginate";
 
 
 @observer
@@ -13,6 +16,32 @@ class Product extends Component {
     async componentDidMount() {
         await productStore.getProduct()
     }
+
+
+    async searchByName(){
+        if(productStore.searchName){
+            productStore.page = 0
+        }
+        await productStore.getProduct()
+    }
+
+    async changeState(){
+        categoryStore.page = 0
+        await productStore.getProduct()
+    }
+
+    async enterSearch(e: any){
+        if(e.key === "Enter"){
+            await productStore.getProduct()
+        }
+    }
+
+    handlePageClick = async (data: any) => {
+        let selected: number = data.selected;
+        productStore.page = selected;
+        requestUtils.saveQueryParam(this.props, {page: productStore.page});
+        await productStore.getProduct()
+    };
 
 
     render() {
@@ -27,6 +56,23 @@ class Product extends Component {
                     </div>
                     <div className="card">
                         <div className="card-body">
+                            <div className="d-flex align-items-center">
+                                <div className="d-flex search_name from-ground">
+                                    <input type="text" className="search form-control"
+                                           onChange={(e: any) => productStore.searchName = e.currentTarget.value}
+                                           onKeyDown={(e: any) => this.enterSearch(e)} placeholder="Search by name"/>
+                                    <button type="button" onClick={() => this.searchByName()}
+                                            className="btn btn-info d-flex align-items-center justify-content-center">
+                                        <i className="far fa-search"/></button>
+                                </div>
+                                <div className="d-flex from-ground ml-4">
+                                    <select className="form-control" style={{width: 250, height: 46}} onChange={(e: any) => {productStore.isHot = e.currentTarget.value; this.changeState()}}>
+                                        <option value="">Chọn</option>
+                                        <option value="true">True</option>
+                                        <option value="false">False</option>
+                                    </select>
+                                </div>
+                            </div>
                             {productStore.isLoading ? <Loading/> :
                                 <div className="table-responsive mt-4">
                                     {productStore.listProduct && productStore.listProduct.length > 0 ?
@@ -74,6 +120,21 @@ class Product extends Component {
                                         : <div className="p-5"> <NoContent/> </div> }
                                 </div>
                             }
+                            <div className="pagination mt-3">
+                                {productStore.totalPages > 1 && <ReactPaginate
+                                    previousLabel={'Previous'} nextLabel={'Next'} breakLabel={'...'}
+                                    breakClassName={'break-me'}
+                                    pageCount={productStore.totalPages}
+                                    forcePage={productStore.page} marginPagesDisplayed={2}
+                                    pageRangeDisplayed={5}
+                                    onPageChange={this.handlePageClick} containerClassName={'pagination'}
+                                    pageClassName={'paginate_button page-item'} pageLinkClassName={'page-link'}
+                                    activeClassName={'active'}
+                                    previousClassName={'paginate_button page-item previous'}
+                                    previousLinkClassName={'page-link'}
+                                    nextClassName={'paginate_button page-item next'} nextLinkClassName={'page-link'}
+                                />}
+                            </div>
                         </div>
                     </div>
                     <AddProduct/>

@@ -2,6 +2,7 @@ import {observable} from "mobx";
 import {exportService} from "./ExportService";
 import {receiptService} from "../receipts/ReceiptService";
 import {toastUtil} from "../../../common/utils/ToastUtil";
+import {getDateString, getToDay, minusDays} from "../../../common/utils/Utils";
 
 class ExportStore{
     @observable isLoading: boolean = false;
@@ -14,6 +15,9 @@ class ExportStore{
         products: []
     }
     @observable listOption: any[] = [];
+    @observable public gte: Date =  minusDays(getToDay(), 30);
+    @observable public lte: Date = getToDay();
+
 
     async getOptionList(id: number){
         const result = await receiptService.optionList(id);
@@ -24,8 +28,10 @@ class ExportStore{
 
 
     async getExport(){
+        const gte = this.gte ? getDateString(this.gte) : "";
+        const lte = this.lte ? getDateString(this.lte) : "";
         this.isLoading = true;
-        const result = await exportService.getExport()
+        const result = await exportService.getExport(gte, lte)
         this.isLoading = false;
         if(result.status === 200){
             this.listExport = result.body.data;

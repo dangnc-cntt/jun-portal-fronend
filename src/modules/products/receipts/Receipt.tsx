@@ -5,6 +5,7 @@ import Loading from "../../../common/component/Loading";
 import NoContent from "../../../common/component/NoContent";
 import {Link} from "react-router-dom";
 import {getLocalDateTime} from "../../../common/utils/Utils";
+import DateRange from "../../../common/component/datePicker/DateRange";
 
 @observer
 class Receipt extends Component {
@@ -13,6 +14,11 @@ class Receipt extends Component {
         await receiptStore.getReceipt()
     }
 
+    handleChangeTime = async (startDate: Date, endDate: Date) => {
+        receiptStore.gte = startDate;
+        receiptStore.lte = endDate;
+        await receiptStore.getReceipt()
+    };
 
     render() {
         return (
@@ -26,6 +32,16 @@ class Receipt extends Component {
                     </div>
                     <div className="card">
                         <div className="card-body">
+                            <div className="time_range mr-4 d-flex align-items-center">
+                                <div className="time_range d-flex align-items-center">
+                                    <DateRange
+                                        startDate={receiptStore.gte}
+                                        endDate={receiptStore.lte}
+                                        opens={"right"}
+                                        handleChangeTime={this.handleChangeTime}
+                                    />
+                                </div>
+                            </div>
                             {receiptStore.isLoading ? <Loading/> :
                                 <div className="table-responsive mt-4">
                                     {receiptStore.listReceipt && receiptStore.listReceipt.length > 0 ?

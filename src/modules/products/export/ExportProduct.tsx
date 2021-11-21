@@ -5,6 +5,7 @@ import NoContent from "../../../common/component/NoContent";
 import {exportStore} from "./ExportStore";
 import {Link} from "react-router-dom";
 import {getLocalDateTime} from "../../../common/utils/Utils";
+import DateRange from "../../../common/component/datePicker/DateRange";
 
 
 @observer
@@ -14,6 +15,11 @@ class ExportProduct extends Component {
        await exportStore.getExport()
     }
 
+    handleChangeTime = async (startDate: Date, endDate: Date) => {
+        exportStore.gte = startDate;
+        exportStore.lte = endDate;
+        await exportStore.getExport()
+    };
 
     render() {
         return (
@@ -27,6 +33,16 @@ class ExportProduct extends Component {
                     </div>
                     <div className="card">
                         <div className="card-body">
+                            <div className="time_range mr-4 d-flex align-items-center">
+                                <div className="time_range d-flex align-items-center">
+                                    <DateRange
+                                        startDate={exportStore.gte}
+                                        endDate={exportStore.lte}
+                                        opens={"right"}
+                                        handleChangeTime={this.handleChangeTime}
+                                    />
+                                </div>
+                            </div>
                             {exportStore.isLoading ? <Loading/> :
                                 <div className="table-responsive mt-4">
                                     {exportStore.listExport && exportStore.listExport.length > 0 ?

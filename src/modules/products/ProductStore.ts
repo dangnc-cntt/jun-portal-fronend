@@ -1,7 +1,6 @@
 import {observable} from "mobx";
 import {productService} from "./ProductService";
 import {toastUtil} from "../../common/utils/ToastUtil";
-import {colorService} from "./color/ColorService";
 import HttpStatusCode from "../../common/constants/HttpErrorCode";
 import $ from "jquery";
 
@@ -12,6 +11,8 @@ class ProductStore{
     @observable listProduct: any[] = [];
     @observable isLoading: boolean = false;
     @observable productInfo: any;
+    @observable isHot: any = false;
+    @observable searchName: string = '';
     @observable dataRequest: any = {
         imageUrls: [],
         name: '',

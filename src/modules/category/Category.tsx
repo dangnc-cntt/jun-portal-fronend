@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import {observer} from "mobx-react";
 import Loading from "../../common/component/Loading";
 import {getLocalDateTime} from "../../common/utils/Utils";
@@ -20,10 +21,14 @@ class Category extends Component {
 
     async searchByName(){
         if(categoryStore.searchName){
-
-        } else {
-            await categoryStore.getCate()
+            categoryStore.page = 0
         }
+        await categoryStore.getCate()
+    }
+
+   async changeState(){
+        categoryStore.page = 0
+        await categoryStore.getCate()
     }
 
     async enterSearch(e: any){
@@ -52,7 +57,7 @@ class Category extends Component {
                     </div>
                     <div className="card">
                         <div className="card-body">
-                            <div className="d-flex align-items-center justify-content-between">
+                            <div className="d-flex align-items-center">
                                 <div className="d-flex search_name from-ground">
                                     <input type="text" className="search form-control"
                                            onChange={(e: any) => categoryStore.searchName = e.currentTarget.value}
@@ -60,6 +65,13 @@ class Category extends Component {
                                     <button type="button" onClick={() => this.searchByName()}
                                             className="btn btn-info d-flex align-items-center justify-content-center">
                                         <i className="far fa-search"/></button>
+                                </div>
+                                <div className="d-flex from-ground ml-4">
+                                    <select className="form-control" style={{width: 250, height: 46}} onChange={(e: any) => {categoryStore.state = e.currentTarget.value; this.changeState()}}>
+                                        <option value="">Chọn</option>
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="NOT_ACTIVE">NOT ACTIVE</option>
+                                    </select>
                                 </div>
                             </div>
                             {categoryStore.isLoading ? <Loading/> :

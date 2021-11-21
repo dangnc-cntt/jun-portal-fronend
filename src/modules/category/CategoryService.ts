@@ -4,7 +4,7 @@ import {categoryStore} from "./CategoryStore";
 class CategoryService{
 
     public getCategory(): Promise<IApiResponse> {
-        return getRequest(`/v1/portal/categories?page=${categoryStore.page}&size=10`);
+        return getRequest(`/v1/portal/categories?page=${categoryStore.page}&size=10${categoryStore.searchName ? `&name=${categoryStore.searchName}` : ''}${categoryStore.state ? `&state=${categoryStore.state}` : ''}`);
     }
 
     public categoryDetail(id: number): Promise<IApiResponse> {

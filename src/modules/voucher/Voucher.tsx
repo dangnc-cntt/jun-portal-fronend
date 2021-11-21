@@ -8,6 +8,8 @@ import AddVoucher from "./components/AddVoucher";
 import EditVoucher from "./components/EditVoucher";
 import DeleteVoucher from "./components/DeleteVoucher";
 import AddVoucherUser from "./components/AddVoucherUser";
+import {requestUtils} from "../../common/utils/RequestUtil";
+import ReactPaginate from "react-paginate";
 
 @observer
 class Voucher extends Component {
@@ -15,6 +17,32 @@ class Voucher extends Component {
     async componentDidMount() {
         await voucherStore.getVoucher()
     }
+
+
+    async searchByName(){
+        if(voucherStore.searchName || voucherStore){
+            voucherStore.page = 0
+        }
+        await voucherStore.getVoucher()
+    }
+
+    async changeState(){
+        voucherStore.page = 0
+        await voucherStore.getVoucher()
+    }
+
+    async enterSearch(e: any){
+        if(e.key === "Enter"){
+            await this.searchByName();
+        }
+    }
+
+    handlePageClick = async (data: any) => {
+        let selected: number = data.selected;
+        voucherStore.page = selected;
+        requestUtils.saveQueryParam(this.props, {page: voucherStore.page});
+        await voucherStore.getVoucher()
+    };
 
     render() {
         return (
@@ -30,6 +58,24 @@ class Voucher extends Component {
                     </div>
                     <div className="card">
                         <div className="card-body">
+                            <div className="d-flex align-items-center">
+                                <div className="d-flex search_name from-ground">
+                                    <input type="text" className="search form-control"
+                                           onChange={(e: any) => voucherStore.searchName = e.currentTarget.value}
+                                           onKeyDown={(e: any) => this.enterSearch(e)} placeholder="Search by name"/>
+                                    <button type="button" onClick={() => this.searchByName()}
+                                            className="btn btn-info d-flex align-items-center justify-content-center">
+                                        <i className="far fa-search"/></button>
+                                </div>
+                                <div className="d-flex search_name from-ground ml-4">
+                                    <input type="text" className="search form-control"
+                                           onChange={(e: any) => voucherStore.code = e.currentTarget.value}
+                                           onKeyDown={(e: any) => this.enterSearch(e)} placeholder="Search by code"/>
+                                    <button type="button" onClick={() => this.searchByName()}
+                                            className="btn btn-info d-flex align-items-center justify-content-center">
+                                        <i className="far fa-search"/></button>
+                                </div>
+                            </div>
                             {voucherStore.isLoading ? <Loading/> :
                                 <div className="table-responsive mt-4">
                                     {voucherStore.listVoucher && voucherStore.listVoucher.length > 0 ?
@@ -87,6 +133,21 @@ class Voucher extends Component {
                                         : <div className="p-5"> <NoContent/> </div> }
                                 </div>
                             }
+                            <div className="pagination mt-3">
+                                {voucherStore.totalPages > 1 && <ReactPaginate
+                                    previousLabel={'Previous'} nextLabel={'Next'} breakLabel={'...'}
+                                    breakClassName={'break-me'}
+                                    pageCount={voucherStore.totalPages}
+                                    forcePage={voucherStore.page} marginPagesDisplayed={2}
+                                    pageRangeDisplayed={5}
+                                    onPageChange={this.handlePageClick} containerClassName={'pagination'}
+                                    pageClassName={'paginate_button page-item'} pageLinkClassName={'page-link'}
+                                    activeClassName={'active'}
+                                    previousClassName={'paginate_button page-item previous'}
+                                    previousLinkClassName={'page-link'}
+                                    nextClassName={'paginate_button page-item next'} nextLinkClassName={'page-link'}
+                                />}
+                            </div>
                         </div>
                     </div>
                     <AddVoucher/>

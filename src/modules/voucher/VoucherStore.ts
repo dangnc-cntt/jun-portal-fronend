@@ -23,6 +23,10 @@ class VoucherStore {
     @observable public isLoading: boolean = false;
     @observable public voucherId: number = 0;
     @observable public listVoucher: any[] = [];
+    @observable public searchName: string = '';
+    @observable public code: string = "";
+    @observable public page: number = 0;
+    @observable public totalPages: number = 0;
     @observable public paramsAddVoucher: {type: string, accountIds: any[]
     } = {
         type: '',
@@ -46,6 +50,7 @@ class VoucherStore {
         const result = await voucherService.getVoucher();
         if (result.status === HttpStatusCode.OK) {
             this.listVoucher = result.body.data;
+            this.totalPages = result.body.metadata.totalPages;
         }
     }
 

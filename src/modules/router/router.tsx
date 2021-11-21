@@ -16,6 +16,7 @@ import DetailReceipt from "../products/receipts/components/DetailReceipt";
 import DetailExport from "../products/export/components/DetailExport";
 import AddExport from "../products/export/components/AddExport";
 import Voucher from "../voucher/Voucher";
+import Order from "../order/Order";
 
 export default function Redirect() {
     return (
@@ -37,6 +38,7 @@ export default function Redirect() {
             <Route path={`/product/add-export`} component={AddExport}/>
             <Route path={`/product/detail-export/:id.html`} component={DetailExport}/>
             <Route path={`/voucher`} component={Voucher}/>
+            <Route path={`/order`} component={Order}/>
         </div>
     )
 }

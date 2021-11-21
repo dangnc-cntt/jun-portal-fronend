@@ -19,8 +19,13 @@ class SideBar extends Component {
                     "id": 0,
                     "name": "Home",
                     "icon": "fas fa-user-friends",
-                    "rootMenu": ['/profile'],
+                    "rootMenu": ['/profile', '/dashboard'],
                     "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "DashBoard",
+                            "link": '/dashboard'
+                        },
                         {
                             "id": 0,
                             "name": "Profile",
@@ -64,6 +69,19 @@ class SideBar extends Component {
                             "id": 0,
                             "name": "Voucher",
                             "link": '/voucher'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
+                    "name": "Order",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/order'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Order",
+                            "link": '/order'
                         }
                     ]
                 },
