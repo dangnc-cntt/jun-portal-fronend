@@ -7,6 +7,7 @@ export interface IAddUser {
     phone: string
     address: string
     gender: string
+    role: string
 }
 
 export interface IListUser {

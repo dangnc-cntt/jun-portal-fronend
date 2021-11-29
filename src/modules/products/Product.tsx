@@ -15,6 +15,7 @@ class Product extends Component {
 
     async componentDidMount() {
         await productStore.getProduct()
+        await productStore.getAllBrands()
     }
 
 
@@ -105,12 +106,6 @@ class Product extends Component {
                                                                     data-toggle="modal" data-target="#editProduct">
                                                                 <i className="far fa-pen"/>
                                                             </button>
-                                                            {/*<button type="button"*/}
-                                                            {/*        onClick={() => productStore.productId = item.id}*/}
-                                                            {/*        className="btn btn-inverse-danger btn-icon"*/}
-                                                            {/*        data-toggle="modal" data-target="#deleteProduct">*/}
-                                                            {/*    <i className="far fa-trash-alt"/>*/}
-                                                            {/*</button>*/}
                                                         </div>
                                                     </td>
                                                 </tr>

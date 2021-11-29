@@ -118,6 +118,11 @@ class SideBar extends Component {
                         },
                         {
                             "id": 0,
+                            "name": "Brand",
+                            "link": '/product/brand'
+                        },
+                        {
+                            "id": 0,
                             "name": "Product",
                             "link": '/products'
                         }

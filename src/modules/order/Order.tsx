@@ -150,10 +150,10 @@ class Order extends Component {
                                                     <td className="text-center">{this.statusOrder(item.state)}</td>
                                                     <td className="text-center">
                                                         <button type="button"
-                                                                onClick={() => voucherStore.detail(item.id)}
-                                                                className="btn btn-inverse-warning btn-icon"
+                                                                onClick={() => orderStore.updateStateOrder(item.id)}
+                                                                className="btn btn-inverse-success btn-icon"
                                                                 data-toggle="modal" data-target="#editVoucher">
-                                                            <i className="far fa-pen"/>
+                                                            <i className="fal fa-arrow-alt-right"/>
                                                         </button>
                                                     </td>
                                                 </tr>

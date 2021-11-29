@@ -1,6 +1,5 @@
 import {getRequest, putRequest, postRequest, deleteRequest, IApiResponse} from "../../common/helpers/RequestHelper";
 import {productStore} from "./ProductStore";
-import {categoryStore} from "../category/CategoryStore";
 
 
 class ProductService{
@@ -11,6 +10,10 @@ class ProductService{
 
     public productDetail(id: number): Promise<IApiResponse> {
         return getRequest(`/v1/portal/products/${id}`);
+    }
+
+    public getBrands(): Promise<IApiResponse> {
+        return getRequest(`/v1/portal/brands/all`);
     }
 
     public addProduct(data: any): Promise<IApiResponse> {

@@ -12,8 +12,8 @@ class OrderService {
         return getRequest(`/v1/portal/orders/${id}`);
     }
 
-    public editOrderState(id: any, data: any): Promise<IApiResponse> {
-        return putRequest(`/v1/portal/orders/${id}`, data);
+    public updateStateOrder(id: any): Promise<IApiResponse> {
+        return putRequest(`/v1/portal/orders/${id}`, {});
     }
 
 }

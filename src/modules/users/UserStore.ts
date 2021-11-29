@@ -24,6 +24,7 @@ class UserStore {
         password: "",
         address: "",
         email: "",
+        role: '',
         gender: "",
         phone: ""
     };
@@ -36,6 +37,7 @@ class UserStore {
             password: "",
             address: "",
             email: "",
+            role: '',
             gender: "",
             phone: ""
         }
@@ -73,8 +75,22 @@ class UserStore {
         this.isGetDetail = false;
     }
 
+    async updateState(id: number, state: string) {
+        const result = await userService.changeStatus(id, state);
+        if (result.status === HttpStatusCode.OK) {
+            toastUtil.success(`${state === "BANNED" ? "Khóa" : "Mở khóa"} tài khoản thành công`);
+            this.userLists.map((item) => {
+                if(item.id == id){
+                    item.state = state
+                }
+            })
+        }else {
+            toastUtil.error(result.body.message ? result.body.message : 'Get detail user false.');
+        }
+    }
+
     async updated() {
-        let { id, username, password, fullName, email, gender, address, phone } = this.dataRequest;
+        let { id, username, password, fullName, email, gender, address, phone, role} = this.dataRequest;
 
         if(!fullName) {
             toastUtil.warning('Please enter Full name.');
@@ -88,12 +104,16 @@ class UserStore {
             toastUtil.warning('Please enter Phone.');
             return false;
         }
-        if(!address) {
-            toastUtil.warning('Please enter Address.');
+        if(!role) {
+            toastUtil.warning('Please enter Role.');
             return false;
         }
         if(!gender) {
             toastUtil.warning('Please enter Gender.');
+            return false;
+        }
+        if(!address) {
+            toastUtil.warning('Please enter Address.');
             return false;
         }
 
@@ -103,6 +123,7 @@ class UserStore {
             email: email,
             password: password,
             gender: gender,
+            role: role,
             address: address,
             phone: phone,
         }
@@ -117,7 +138,7 @@ class UserStore {
     }
 
     async created() {
-        let {  username, password, fullName, email, gender, address, phone } = this.dataRequest;
+        let {  username, password, fullName, email, gender, address, phone, role } = this.dataRequest;
         if(!username) {
             toastUtil.warning('Please enter username.');
             return false;
@@ -146,12 +167,17 @@ class UserStore {
             toastUtil.warning('Please enter Phone.');
             return false;
         }
-        if(!address) {
-            toastUtil.warning('Please enter Address.');
+        if(!role) {
+            toastUtil.warning('Please enter Role.');
             return false;
         }
+
         if(!gender) {
             toastUtil.warning('Please enter Gender.');
+            return false;
+        }
+        if(!address) {
+            toastUtil.warning('Please enter Address.');
             return false;
         }
 
@@ -161,6 +187,7 @@ class UserStore {
             email: email,
             password: password,
             gender: gender,
+            role: role,
             address: address,
             phone: phone,
         }

@@ -23,6 +23,10 @@ class UserService {
         return postRequest(`/v1/portal/admin/users`, data);
     }
 
+    public changeStatus(id: any, state: string): Promise<IApiResponse> {
+        return putRequest(`/v1/portal/admin/users/state/${id}?state=${state}`, {});
+    }
+
     public deleteUser(id: number): Promise<IApiResponse> {
         return deleteRequest(`/v1/portal/admin/users/${id}`, {});
     }

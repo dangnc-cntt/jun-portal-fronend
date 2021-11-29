@@ -219,6 +219,16 @@ class AddProduct extends Component {
                                         </select>
                                     </div>
                                     <div className="form-group">
+                                        <label>Brand</label>
+                                        <select className="form-control" value={productStore.dataRequest.brandId}
+                                                onChange={(e: any) => productStore.dataRequest.brandId = e.currentTarget.value}>
+                                            <option value="">Choose</option>
+                                            {productStore.listBrand.map((val, i) => {
+                                                return ( <option value={val.id} key={i}>{val.name}</option> )
+                                            })}
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
                                         <label>State</label>
                                         <select className="form-control" value={productStore.dataRequest.state}
                                                 onChange={(e: any) => productStore.dataRequest.state = e.currentTarget.value}>

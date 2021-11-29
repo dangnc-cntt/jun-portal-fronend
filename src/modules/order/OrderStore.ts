@@ -29,6 +29,14 @@ class OrderStore {
         }
     }
 
+    async updateStateOrder(id: number){
+        const result = await orderService.updateStateOrder(id);
+        if(result.status == 200){
+            toastUtil.success("Update state success")
+            await this.getOrder();
+        }
+    }
+
 }
 
 export const orderStore = new OrderStore();

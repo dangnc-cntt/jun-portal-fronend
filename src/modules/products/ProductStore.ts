@@ -9,6 +9,7 @@ class ProductStore{
     @observable totalPages: any = 0;
     @observable productId: any = '';
     @observable listProduct: any[] = [];
+    @observable listBrand: any[] = [];
     @observable isLoading: boolean = false;
     @observable productInfo: any;
     @observable isHot: any = false;
@@ -22,6 +23,7 @@ class ProductStore{
         price: 0,
         discount: 0,
         isHot: false,
+        brandId: 0,
         categoryId: '',
         description: '',
         optionList: [],
@@ -39,6 +41,7 @@ class ProductStore{
             price: 0,
             discount: 0,
             isHot: false,
+            brandId: 0,
             categoryId: '',
             description: '',
             optionList: [],
@@ -56,6 +59,14 @@ class ProductStore{
             this.totalPages = result.body.metadata.totalPages
         }
     }
+
+    async getAllBrands(){
+        const result = await productService.getBrands()
+        if(result.status === 200){
+            this.listBrand = result.body;
+        }
+    }
+
     async getProductDetail(id: any){
         this.isLoading = true;
         const result = await productService.productDetail(id)
@@ -66,11 +77,53 @@ class ProductStore{
     }
 
     async addProduct(){
-        let {name, isHot, description, state, categoryId, discount, costPrice, imageUrls, code, price, optionList} = this.dataRequest;
+        let {name, isHot, description, state, categoryId, discount, costPrice, imageUrls, code, price, optionList, brandId} = this.dataRequest;
+
         if(!name) {
             toastUtil.warning('Vui lòng nhập Name');
             return false;
         }
+        if(!code) {
+            toastUtil.warning('Vui lòng nhập Code');
+            return false;
+        }
+        if(!categoryId) {
+            toastUtil.warning('Vui lòng chọn Category');
+            return false;
+        }
+        if(!optionList) {
+            toastUtil.warning('Vui lòng thêm Options');
+            return false;
+        }
+        if(!description) {
+            toastUtil.warning('Vui lòng nhập Description');
+            return false;
+        } if(!price) {
+            toastUtil.warning('Vui lòng nhập Price');
+            return false;
+        } if(!costPrice) {
+            toastUtil.warning('Vui lòng nhập CostPrice');
+            return false;
+        }
+
+        if(!discount) {
+            toastUtil.warning('Vui lòng nhập Discount');
+            return false;
+        }
+        if(!isHot) {
+            toastUtil.warning('Vui lòng chọn isHot');
+            return false;
+        }
+
+        if(!brandId) {
+            toastUtil.warning('Vui lòng chọn brand');
+            return false;
+        }
+        if(!state) {
+            toastUtil.warning('Vui lòng chọn State');
+            return false;
+        }
+
 
         let data = {
             code: code,
@@ -82,6 +135,7 @@ class ProductStore{
             imageUrls: imageUrls,
             costPrice: costPrice,
             price: price,
+            brandId: brandId,
             categoryId: categoryId,
             optionList: optionList
         }
@@ -98,11 +152,52 @@ class ProductStore{
     }
 
     async editProduct(){
-        let {id, name, isHot, description, state, categoryId, discount, costPrice, imageUrls, code, price, optionList} = this.dataRequest;
+        let {id, name, isHot, description, state, categoryId, discount, costPrice, imageUrls, code, price, optionList, brandId} = this.dataRequest;
         if(!name) {
             toastUtil.warning('Vui lòng nhập Name');
             return false;
         }
+        if(!code) {
+            toastUtil.warning('Vui lòng nhập Code');
+            return false;
+        }
+        if(!categoryId) {
+            toastUtil.warning('Vui lòng chọn Category');
+            return false;
+        }
+        if(!optionList) {
+            toastUtil.warning('Vui lòng thêm Options');
+            return false;
+        }
+        if(!description) {
+            toastUtil.warning('Vui lòng nhập Description');
+            return false;
+        } if(!price) {
+            toastUtil.warning('Vui lòng nhập Price');
+            return false;
+        } if(!costPrice) {
+            toastUtil.warning('Vui lòng nhập CostPrice');
+            return false;
+        }
+
+        if(!discount) {
+            toastUtil.warning('Vui lòng nhập Discount');
+            return false;
+        }
+        if(!isHot) {
+            toastUtil.warning('Vui lòng chọn isHot');
+            return false;
+        }
+
+        if(!brandId) {
+            toastUtil.warning('Vui lòng chọn brand');
+            return false;
+        }
+        if(!state) {
+            toastUtil.warning('Vui lòng chọn State');
+            return false;
+        }
+
 
         let data = {
             code: code,
@@ -114,6 +209,7 @@ class ProductStore{
             imageUrls: imageUrls,
             costPrice: costPrice,
             price: price,
+            brandId: brandId,
             categoryId: categoryId,
             optionList: optionList
         }
@@ -128,8 +224,6 @@ class ProductStore{
             toastUtil.error(result.body.message);
         }
     }
-
-
 
     async deleteProduct(){
         const result = await productService.deleteProduct(this.productId);

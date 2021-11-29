@@ -52,7 +52,7 @@ class AddUser extends Component<any, any> {
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body pt-0 pb-0">
                             <div className="form-group">
                                 <label>Username<sup className="text-danger">*</sup></label>
                                 <input type="text" 
@@ -118,6 +118,16 @@ class AddUser extends Component<any, any> {
                                 </select>
                             </div>
                             <div className="form-group">
+                                <label>Role<sup className="text-danger">*</sup></label>
+                                <select className="form-control"
+                                        value={userStore.dataRequest.role}
+                                        onChange={(e: any) => userStore.dataRequest.role = e.currentTarget.value}>
+                                    <option value="">Choose Role</option>
+                                    <option value="CASHIER">CASHIER</option>
+                                    <option value="WAREHOUSE">WAREHOUSE</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
                                 <label>Address</label>
                                 <input type="text"
                                        placeholder="Enter address"
@@ -129,7 +139,7 @@ class AddUser extends Component<any, any> {
                         </div>
                         <div className="modal-footer border-top-0 pt-0">
                             <button type="button" className="btn" data-dismiss="modal">Cancel</button>
-                            <button type="button" onClick={() => userStore.created()} className="btn btn-info">Created</button>
+                            <button type="button" onClick={() => userStore.created()} className="btn btn-info">Create</button>
                         </div>
                     </div>
                 </div>

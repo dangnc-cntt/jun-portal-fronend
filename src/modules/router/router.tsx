@@ -17,6 +17,10 @@ import DetailExport from "../products/export/components/DetailExport";
 import AddExport from "../products/export/components/AddExport";
 import Voucher from "../voucher/Voucher";
 import Order from "../order/Order";
+import Brand from "../products/brand/Brand";
+import Dashboard from "../dashboard/Dashboard";
+
+
 
 export default function Redirect() {
     return (
@@ -25,11 +29,13 @@ export default function Redirect() {
             <Route path={`/login`} component={LoginComponent}/>
             <Route path={`/user`} component={UserList}/>
             <Route path={`/account`} component={Account}/>
+            <Route path={`/dashboard`} component={Dashboard}/>
             <Route path={`/profile`} component={Profile}/>
             <Route path={`/products`} component={Product}/>
             <Route path={`/product/color`} component={Color}/>
             <Route path={`/product/size`} component={Size}/>
             <Route path={`/product/category`} component={Category}/>
+            <Route path={`/product/brand`} component={Brand}/>
             <Route path={`/product/receipt`} component={Receipt}/>
             <Route path={`/product/detail-receipt/:id.html`} component={DetailReceipt}/>
             <Route path={`/product/add-receipt`} component={AddReceipt}/>

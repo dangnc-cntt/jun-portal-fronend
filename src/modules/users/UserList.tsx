@@ -100,9 +100,16 @@ class UserList extends Component {
                                                     <td>{this.status(item.state)}</td>
                                                     <td width="5%" className="text-center">
                                                         <div className="btn-group">
-                                                            <button type="button" className="btn btn-inverse-info btn-icon">
-                                                                <i className="fas fa-key-skeleton"/>
-                                                            </button>
+                                                            {item.state === "BANNED" ?
+                                                                <button type="button"
+                                                                        onClick={() => userStore.updateState(item.id, State.ACTIVATED)}
+                                                                        className="btn btn-inverse-info btn-icon">
+                                                                    <i className="fal fa-lock-open"/>
+                                                                </button> :
+                                                                <button type="button" onClick={() => userStore.updateState(item.id, State.BANNED)} className="btn btn-inverse-danger btn-icon">
+                                                                    <i className="fal fa-lock-alt"/>
+                                                                </button>
+                                                            }
                                                             <button type="button"
                                                                     onClick={() => userStore.userDetail(item.id)}
                                                                     className="btn btn-inverse-warning btn-icon"

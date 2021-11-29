@@ -103,13 +103,16 @@ class EditProduct extends Component {
                                 <div className="col-6">
                                     <div className="form-group h-auto mb-2">
                                         <label>Avatar</label>
-                                        <div>
+                                        <div className="d-flex">
                                             {productStore.dataRequest.imageUrls && productStore.dataRequest.imageUrls.map((value: any, i: number) => {
-                                                return <img style={{width: 35, height: 35}} className="mr-2 ml-2"
-                                                            src={value} key={i} alt=""/>
+                                                return <div className="position-relative mr-2">
+                                                    <img style={{width: 35, height: 35}} className="mr-2 ml-2"
+                                                         src={value} key={i} alt=""/>
+                                                         <i className="fal fa-times" css={i} onClick={() => productStore.dataRequest.imageUrls.splice(i, 1)}/>
+                                                </div>
                                             })}
                                         </div>
-                                        <input type="file" style={{width: 95, overflow: `hidden`}} className="mt-2"
+                                        <input type="file" style={{width: 80, overflow: `hidden`}} className="mt-2"
                                                onChange={(e: any) => this.handleChange(e)}/>
                                     </div>
                                     <div className="form-group mt-2">
@@ -226,6 +229,16 @@ class EditProduct extends Component {
                                         </select>
                                     </div>
                                     <div className="form-group">
+                                        <label>Brand</label>
+                                        <select className="form-control" value={productStore.dataRequest.brandId}
+                                                onChange={(e: any) => productStore.dataRequest.brandId = e.currentTarget.value}>
+                                            <option value="">Choose</option>
+                                            {productStore.listBrand.map((val, i) => {
+                                                return ( <option value={val.id} key={i}>{val.name}</option> )
+                                            })}
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
                                         <label>State</label>
                                         <select className="form-control" value={productStore.dataRequest.state}
                                                 onChange={(e: any) => productStore.dataRequest.state = e.currentTarget.value}>
@@ -274,4 +287,18 @@ const option = css`
     border-radius: 50%;
     background-color: darkred;
   }
+`
+
+const i = css`
+  top: -12px;
+  right: -12px;
+  width: 22px;
+  height: 22px;
+  color: white;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: darkred;
 `
