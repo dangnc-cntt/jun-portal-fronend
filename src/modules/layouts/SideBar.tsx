@@ -130,6 +130,76 @@ class SideBar extends Component {
                 },
             ]
         },
+        {
+            id: 0,
+            role: "USER",
+            menu: [
+                {
+                    "id": 0,
+                    "name": "Home",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/profile'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Profile",
+                            "link": '/profile'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
+                    "name": "Account",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/account'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Account",
+                            "link": '/account'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
+                    "name": "Product",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/product/category', '/product/color', '/product/size', '/product/export','/products'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Color",
+                            "link": '/product/color'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Size",
+                            "link": '/product/size'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Category",
+                            "link": '/product/category'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Export",
+                            "link": '/product/export'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Receipt",
+                            "link": '/product/receipt'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Product",
+                            "link": '/products'
+                        }
+                    ]
+                },
+            ]
+        },
     ];
 
     getRootPath() {

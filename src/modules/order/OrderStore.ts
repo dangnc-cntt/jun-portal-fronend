@@ -30,7 +30,7 @@ class OrderStore {
     }
 
     async updateStateOrder(id: number){
-        const result = await orderService.updateStateOrder(id);
+        const result = await orderService.editOrderState(id);
         if(result.status == 200){
             toastUtil.success("Update state success")
             await this.getOrder();
