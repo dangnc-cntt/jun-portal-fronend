@@ -12,7 +12,9 @@ class ExportStore{
     @observable totalPages: number = 0;
     @observable dataRequest: any = {
         description: '',
-        products: []
+        products: [],
+        isOnline: false,
+        orderId: 0
     }
     @observable listOption: any[] = [];
     @observable public gte: Date =  minusDays(getToDay(), 30);
@@ -59,10 +61,15 @@ class ExportStore{
                 cost_price: value.costPrice
             })
         })
-        let data = {
+        let data: any = {
             description: this.dataRequest.description,
-            products: products
+            products: products,
+            isOnline: this.dataRequest.isOnline
         }
+        if(data.isOnline){
+            data['orderId'] = this.dataRequest.orderId
+        }
+
         this.isLoading = true;
         const result = await exportService.addExport(data)
         this.isLoading = false;

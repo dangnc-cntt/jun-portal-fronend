@@ -29,11 +29,14 @@ class OrderStore {
         }
     }
 
-    async updateStateOrder(id: number){
-        const result = await orderService.updateStateOrder(id);
+    async updateStateOrder(){
+        const result = await orderService.updateStateOrder(orderStore.orderId);
         if(result.status == 200){
             toastUtil.success("Update state success")
+            $('#confirmStatus').trigger('click')
             await this.getOrder();
+        }else {
+            toastUtil.error(result.body.message)
         }
     }
 

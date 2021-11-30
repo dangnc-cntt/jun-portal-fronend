@@ -19,6 +19,7 @@ import Voucher from "../voucher/Voucher";
 import Order from "../order/Order";
 import Brand from "../products/brand/Brand";
 import Dashboard from "../dashboard/Dashboard";
+import Config from "../config/Config";
 
 
 
@@ -31,6 +32,7 @@ export default function Redirect() {
             <Route path={`/account`} component={Account}/>
             <Route path={`/dashboard`} component={Dashboard}/>
             <Route path={`/profile`} component={Profile}/>
+            <Route path={`/config`} component={Config}/>
             <Route path={`/products`} component={Product}/>
             <Route path={`/product/color`} component={Color}/>
             <Route path={`/product/size`} component={Size}/>

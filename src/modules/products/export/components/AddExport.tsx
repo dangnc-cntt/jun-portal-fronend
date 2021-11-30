@@ -6,6 +6,7 @@ import {observable} from "mobx";
 import {css} from "@emotion/core";
 import {exportStore} from "../ExportStore";
 import {toastUtil} from "../../../../common/utils/ToastUtil";
+import {getRequest} from "../../../../common/helpers/RequestHelper";
 
 
 @observer
@@ -14,9 +15,18 @@ class AddExport extends Component {
     @observable idOption: any = '';
     @observable showOptions: boolean = false;
     @observable idProduct: any = 0;
+    @observable listOrder: any[] = [];
 
     async componentDidMount() {
-        await productStore.getProduct()
+        await productStore.getProduct();
+        await this.getOrderAll();
+    }
+
+    async getOrderAll(){
+        const result = await getRequest(`/v1/portal/orders/all`);
+        if(result.status === 200){
+            this.listOrder = result.body
+        }
     }
 
 
@@ -91,6 +101,22 @@ class AddExport extends Component {
                                        value={exportStore.dataRequest.description}
                                        onChange={(e: any) => exportStore.dataRequest.description = e.currentTarget.value}
                                 />
+                            </div>
+                            <div className="d-flex align-items-center mb-4">
+                                <div className="w-50">
+                                    <label className="w-100 mr-4">Payment online</label>
+                                    {exportStore.dataRequest.isOnline ? <i className="fad fa-toggle-on text-success" onClick={() => exportStore.dataRequest.isOnline = false} style={{fontSize: 32}}/> :
+                                        <i className="fad fa-toggle-off text-secondary" onClick={() => exportStore.dataRequest.isOnline = true} style={{fontSize: 32}}/>}
+                                </div>
+                                {exportStore.dataRequest.isOnline && <div className="w-50">
+                                    <label>Order</label>
+                                    <select className="form-control" onChange={(e: any) => exportStore.dataRequest.orderId = e.currentTarget.value}>
+                                        <option value="">Choose order</option>
+                                        {this.listOrder && this.listOrder.map((item, i) => {
+                                            return <option value={item.id} key={i}>{item.id}</option>
+                                        })}
+                                    </select>
+                                </div>}
                             </div>
                             <div className="form-group mb-2">
                                 <label>Products</label>

@@ -87,6 +87,19 @@ class SideBar extends Component {
                 },
                 {
                     "id": 0,
+                    "name": "Config",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/config'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Config",
+                            "link": '/config'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
                     "name": "Product",
                     "icon": "fas fa-user-friends",
                     "rootMenu": ['/product/category', '/product/color', '/product/size', '/product/export','/products'],

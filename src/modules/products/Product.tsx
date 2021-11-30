@@ -8,6 +8,7 @@ import EditProduct from "./components/EditProduct";
 import {categoryStore} from "../category/CategoryStore";
 import {requestUtils} from "../../common/utils/RequestUtil";
 import ReactPaginate from "react-paginate";
+import DetailProduct from "./components/DetailProduct";
 
 
 @observer
@@ -102,9 +103,15 @@ class Product extends Component {
                                                         <div className="btn-group">
                                                             <button type="button"
                                                                     onClick={() => productStore.getProductDetail(item.id)}
-                                                                    className="btn btn-inverse-warning btn-icon"
+                                                                    className="btn btn-inverse-warning mr-2 btn-icon"
                                                                     data-toggle="modal" data-target="#editProduct">
                                                                 <i className="far fa-pen"/>
+                                                            </button>
+                                                            <button type="button"
+                                                                    onClick={() => productStore.getProductDetail(item.id)}
+                                                                    className="btn btn-inverse-secondary btn-icon"
+                                                                    data-toggle="modal" data-target="#detailProduct">
+                                                                <i className="far fa-info"/>
                                                             </button>
                                                         </div>
                                                     </td>
@@ -134,6 +141,7 @@ class Product extends Component {
                     </div>
                     <AddProduct/>
                     <EditProduct/>
+                    <DetailProduct/>
                     {/*<DeleteProduct/>*/}
                 </div>
             </div>

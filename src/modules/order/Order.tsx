@@ -11,6 +11,7 @@ import {getLocalDateTime, number_format} from "../../common/utils/Utils";
 import {css} from "@emotion/core";
 import {voucherStore} from "../voucher/VoucherStore";
 import DateRange from "../../common/component/datePicker/DateRange";
+import ConfirmStatus from "./ConfirmStatus";
 
 
 @observer
@@ -49,35 +50,35 @@ class Order extends Component {
         if (state === "NEW") {
             return (
                 <span css={State1}>
-                    Chờ xác nhận
+                    Wait confirmation
                 </span>
             )
         }
         if (state === "DELIVERY") {
             return (
                 <span css={State2}>
-                    Đang giao
+                    Delivery
                 </span>
             )
         }
         if (state === "VPN_UNPAID") {
             return (
                 <span css={State3}>
-                    Chờ thanh toán
+                    Wait for pay
                 </span>
             )
         }
         if (state === "COMPLETED") {
             return (
                 <span css={State3}>
-                    Đã giao
+                    Completed
                 </span>
             )
         }
         if (state === "CONFIRMED") {
             return (
                 <span css={State4}>
-                    Đang xử lý
+                    Confirmed
                 </span>
             )
         } else return true
@@ -149,12 +150,13 @@ class Order extends Component {
                                                     <td>{getLocalDateTime(item.createdAt, "dd/mm/yyyy, hh:m_m")}</td>
                                                     <td className="text-center">{this.statusOrder(item.state)}</td>
                                                     <td className="text-center">
+                                                        {item.state !== "COMPLETED" &&
                                                         <button type="button"
-                                                                onClick={() => orderStore.updateStateOrder(item.id)}
+                                                                onClick={() => orderStore.orderId = item.id}
                                                                 className="btn btn-inverse-success btn-icon"
-                                                                data-toggle="modal" data-target="#editVoucher">
+                                                                data-toggle="modal" data-target="#confirmStatus">
                                                             <i className="fal fa-arrow-alt-right"/>
-                                                        </button>
+                                                        </button>}
                                                     </td>
                                                 </tr>
                                             ))}
@@ -179,6 +181,7 @@ class Order extends Component {
                                 />}
                             </div>
                         </div>
+                        <ConfirmStatus/>
                     </div>
                 </div>
             </div>
