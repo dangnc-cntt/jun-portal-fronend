@@ -98,7 +98,7 @@ class Order extends Component {
                 <div className="content-wrapper">
                     <div className=" d-flex align-items-center justify-content-between mt-2 mb-3">
                         <div className="pl-2 pr-2 w-100 d-flex align-items-center justify-content-between">
-                            <h3 className="mb-0">Đơn hàng</h3>
+                            <h3 className="mb-0">Order</h3>
                         </div>
                     </div>
                     <div className="card">

@@ -2,24 +2,18 @@ import React, {Component} from "react";
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import Constants from "../constants/Constants";
 import {observer} from "mobx-react";
+import {Moment} from "../utils/Moment";
 
 @observer
 class DatePickerRange extends Component<any, any>{
-
     constructor(props: any) {
         super(props);
 
-        const today = new Date();
-        const yesterday = new Date();
-        yesterday.setDate(today.getDate() - 1);
-        const pre7Day = new Date();
-        pre7Day.setDate(today.getDate() - 6);
-        const pre30Day = new Date();
-        pre30Day.setDate(today.getDate() - 29);
-        const pre6Month = new Date();
-        pre6Month.setMonth(today.getMonth() - 6);
+        const today = Moment.getToDay()
+        const yesterday = Moment.minusDays(today, 1)
+        const pre7Day = Moment.minusDays(today, 7)
+        const pre30Day = Moment.minusDays(today, 30)
         this.state = {
-            timeFilterText: this.formatDateRange(this.props.startDate, this.props.endDate),
             ranges: {
                 'Today': [today, today],
                 'Yesterday': [yesterday, yesterday],
@@ -29,40 +23,29 @@ class DatePickerRange extends Component<any, any>{
         }
     }
 
-    formatDateRange = (_startDate: string, _endDate:string) => {
-        console.log("=====formatDateRange: " + _startDate)
-       return (_startDate ? _startDate : "##") + " - " + (_endDate ? _endDate : "##")
-    }
-
-    handleChangeTime = (event: any, picker: any) => {
-        this.setState({
-            timeFilterText:  this.formatDateRange(picker.startDate.format(Constants.DATE_FORMAT), picker.endDate.format(Constants.DATE_FORMAT))
-        })
-        this.props.handleChangeTime(picker.startDate.format(Constants.DATE_FORMAT), picker.endDate.format(Constants.DATE_FORMAT))
+    onApply = (event: any, picker: any) => {
+        this.props.handleChangeTime?.(Moment.parserDateFromMiliSecond(picker.startDate), Moment.parserDateFromMiliSecond(picker.endDate))
     }
 
     render() {
         return (
-            <DateRangePicker
-                initialSettings={{opens: this.props.opens,
-                    ranges: this.state.ranges,
-                    starDate: this.props.startDate,
-                    endDate: this.props.endDate,
-                    dateFormat: Constants.DATE_FORMAT,
-                    locale: {
-                        format: 'YYYY-MM-DD',
-                    },
-                    autoApply: true,
-                    autoUpdateInput: false
-                }}
-                onApply={this.handleChangeTime}>
-                <div className="show d-flex align-items-center">
-                    <i className="fal fa-calendar-alt"/>
-                    <input className="form-control"
-                           value={this.state.timeFilterText}
-                           onKeyDown={(e: any) => e.preventDefault()} defaultValue={this.state.timeFilterText}/>
-                </div>
-            </DateRangePicker>
+            <div className="show d-flex align-items-center">
+                <i className="fal fa-calendar-alt"/>
+                <DateRangePicker
+                    initialSettings={{opens: this.props.opens,
+                        ranges: this.state.ranges,
+                        startDate: this.props.startDate,
+                        endDate: this.props.endDate,
+                        locale: {
+                            format: 'yyyy/MM/DD',
+                        },
+                        autoApply: true,
+                        autoUpdateInput: true
+                    }}
+                    onApply={this.onApply}>
+                    <input type="text" className="form-control"/>
+                </DateRangePicker>
+            </div>
         )
     }
 }

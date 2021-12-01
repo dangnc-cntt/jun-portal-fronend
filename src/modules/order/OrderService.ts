@@ -12,7 +12,7 @@ class OrderService {
     }
 
     public updateStateOrder(id: any): Promise<IApiResponse> {
-        return getRequest(`/v1/portal/orders/${id}`);
+        return putRequest(`/v1/portal/orders/${id}`, {});
     }
 
 }
