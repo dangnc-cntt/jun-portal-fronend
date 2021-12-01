@@ -28,6 +28,11 @@ class SideBar extends Component {
                         },
                         {
                             "id": 0,
+                            "name": "Inventory Statistic",
+                            "link": '/inventory-statistic'
+                        },
+                        {
+                            "id": 0,
                             "name": "Profile",
                             "link": '/profile'
                         }

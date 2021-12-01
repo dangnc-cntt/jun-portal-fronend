@@ -1,10 +1,9 @@
 import {observable} from "mobx";
-import HttpStatusCode from "../../common/constants/HttpErrorCode";
 import {Moment} from "../../common/utils/Moment";
-import {dashboardService} from "./DashboardService";
+import {getRequest} from "../../common/helpers/RequestHelper";
 
 
-class DashboardStore {
+class InventoryStore {
     @observable public isLoading: boolean = false;
     @observable public dashboard?: any;
     @observable public page: any = 0;
@@ -14,20 +13,18 @@ class DashboardStore {
     @observable public totalStatistic: any;
 
 
-    async getDashboard() {
+    async getWarehouse(){
         const startDate = this.startDate ? Moment.getDateString(this.startDate) : "";
         const endDate = this.endDate ? Moment.getDateString(this.endDate) : "";
-        this.isLoading = true;
-        const response = await dashboardService.getDashBoard(startDate, endDate);
-        this.isLoading = false;
-        if (response.status === HttpStatusCode.OK) {
+        const response = await getRequest(`/v1/portal/statistic/warehouse?gte=${startDate}&lte=${endDate}&page=${this.page}&size=10`);
+        if(response.status === 200){
             this.dashboard = response.body;
-            if (response.body.orders) {
-                this.totalPages = response.body.orders.metadata.totalPages;
+            if (response.body.products) {
+                this.totalPages = response.body.products.metadata.totalPages;
             }
         }
     }
 
 }
 
-export const dashboardStore = new DashboardStore();
+export const inventoryStore = new InventoryStore();

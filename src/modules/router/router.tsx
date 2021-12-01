@@ -21,6 +21,7 @@ import Brand from "../products/brand/Brand";
 import Dashboard from "../dashboard/Dashboard";
 import Config from "../config/Config";
 import Review from "../review/Review";
+import InventoryStatistics from "../dashboard/InventoryStatistics";
 
 
 
@@ -35,6 +36,7 @@ export default function Redirect() {
             <Route path={`/profile`} component={Profile}/>
             <Route path={`/config`} component={Config}/>
             <Route path={`/review`} component={Review}/>
+            <Route path={`/inventory-statistic`} component={InventoryStatistics}/>
             <Route path={`/products`} component={Product}/>
             <Route path={`/product/color`} component={Color}/>
             <Route path={`/product/size`} component={Size}/>

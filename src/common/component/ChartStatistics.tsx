@@ -5,10 +5,13 @@ import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
 
 @observer
-class ChartStatistics extends Component<{ dataStatistic: any}, any> {
+class ChartStatistics extends Component<{ dataStatistic: any, type?: string}, any> {
 
 
     render() {
+
+        let dataExport: any = [];
+        let dataReceipt: any = [];
         let total: any = [];
         let spending: any = [];
         let actual: any = [];
@@ -17,41 +20,59 @@ class ChartStatistics extends Component<{ dataStatistic: any}, any> {
         let totalProduct: any = [];
         let statisticDate: any = [];
 
-        statisticDate = statisticDate.concat([{
+        if(this.props.type == "dashboard"){
+            statisticDate = statisticDate.concat([{
                 name: 'Total revenue',
                 data: total
             },
-            {
-                name: 'Total expenditure',
-                data: spending
-            },
-            {
-                name: 'Actual profit',
-                data: actual
-            },
-            {
-                name: 'Discount',
-                data: discount
-            },
-            {
-                name: 'Total Order',
-                data: totalOrder
-            },
-            {
-                name: 'Total Product',
-                data: totalProduct
-            }
-        ])
+                {
+                    name: 'Total expenditure',
+                    data: spending
+                },
+                {
+                    name: 'Actual profit',
+                    data: actual
+                },
+                {
+                    name: 'Discount',
+                    data: discount
+                },
+                {
+                    name: 'Total Order',
+                    data: totalOrder
+                },
+                {
+                    name: 'Total Product',
+                    data: totalProduct
+                }
+            ])
+        }else {
+            statisticDate = statisticDate.concat([{
+                    name: 'Export',
+                    data: dataExport
+                },
+                {
+                    name: 'Receipt',
+                    data: dataReceipt
+                }
+            ])
+        }
+
 
         if(this.props.dataStatistic) {
             for(let i = 0; i < this.props.dataStatistic.length; i++) {
                 let item = this.props.dataStatistic[i];
-                total.push([Date.parse(item.date), parseInt(item.statistic.total)])
-                spending.push([Date.parse(item.date), parseInt(item.statistic.spending)])
-                actual.push([Date.parse(item.date), parseInt(item.statistic.actual)])
-                discount.push([Date.parse(item.date), parseInt(item.statistic.discount)])
-                totalOrder.push([Date.parse(item.date), parseInt(item.statistic.totalOrder)])
-                totalProduct.push([Date.parse(item.date), parseInt(item.statistic.totalProduct)])
+                if(this.props.type == "dashboard"){
+                    total.push([Date.parse(item.date), parseInt(item.statistic.total)])
+                    spending.push([Date.parse(item.date), parseInt(item.statistic.spending)])
+                    actual.push([Date.parse(item.date), parseInt(item.statistic.actual)])
+                    discount.push([Date.parse(item.date), parseInt(item.statistic.discount)])
+                    totalOrder.push([Date.parse(item.date), parseInt(item.statistic.totalOrder)])
+                    totalProduct.push([Date.parse(item.date), parseInt(item.statistic.totalProduct)])
+                }else {
+                    dataExport.push([Date.parse(item.date), parseInt(item.amount.export)])
+                    dataReceipt.push([Date.parse(item.date), parseInt(item.amount.receipt)])
+                }
             }
         }
 
