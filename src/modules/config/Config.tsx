@@ -5,6 +5,10 @@ import NoContent from "../../common/component/NoContent";
 import ReactPaginate from "react-paginate";
 import {configStore} from "./ConfigStore";
 import {requestUtils} from "../../common/utils/RequestUtil";
+import {categoryStore} from "../category/CategoryStore";
+import AddConfig from "./AddConfig";
+import EditConfig from "./EditConfig";
+import DeleteConfig from "./DeleteConfig";
 
 @observer
 class Config extends Component {
@@ -27,6 +31,7 @@ class Config extends Component {
                     <div className=" d-flex align-items-center justify-content-between mt-2 mb-3">
                         <div className="pl-2 pr-2 w-100 d-flex align-items-center justify-content-between">
                             <h3 className="mb-0">Config</h3>
+                            <button type="button" className="btn btn-outline-info" data-toggle="modal" data-target="#addConfig">Create</button>
                         </div>
                     </div>
                     <div className="card">
@@ -39,26 +44,30 @@ class Config extends Component {
                                             <tr>
                                                 <th><strong>Id</strong></th>
                                                 <th><strong>Key</strong></th>
-                                                <th><strong>Name</strong></th>
-                                                <th className="text-center"><strong>Actions</strong></th>
+                                                <th><strong>Value</strong></th>
+                                                <th><strong>Type</strong></th>
+                                                <th/>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             {configStore.listConfig.map((item, i) => (
                                                 <tr key={i} className="position-relative">
                                                     <td>{item.id}</td>
-                                                    <td><img src={item.imageUrl} alt=""/></td>
-                                                    <td width="20%">{item.name}</td>
-                                                    <td>{item.description}</td>
+                                                    <td>{item.key}</td>
+                                                    <td>{item.type === "BANNER" ?
+                                                        (item.value.split(',').map((val: any, i: number) => {
+                                                            return <img className="mr-2" style={{width: 80, height: 40, borderRadius: 4}} src={val} key={i} alt=""/>
+                                                        }))
+                                                        : item.value}</td>
+                                                    <td>{item.type}</td>
                                                     <td width="5%" className="text-center">
                                                         <div className="btn-group">
-                                                            <button type="button" onClick={() => configStore.configDetail(item.key)} data-toggle="modal" data-target="#editConfig" className="btn btn-inverse-warning btn-icon">
+                                                            <button type="button" data-toggle="modal" data-target="#editConfig" onClick={() => configStore.configDetail(item.key)} className="btn btn-inverse-warning btn-icon">
                                                                 <i className="fad fa-pen"/>
                                                             </button>
-                                                            <button type="button"
-                                                                    onClick={() => configStore.configKey = item.id}
-                                                                    className="btn btn-inverse-danger btn-icon"
-                                                                    data-toggle="modal" data-target="#deleteConfig">
+                                                            <button  onClick={() => configStore.key = item.key}
+                                                                      className="btn btn-inverse-danger btn-icon"
+                                                                      data-toggle="modal" data-target="#deleteConfig">
                                                                 <i className="far fa-trash-alt"/>
                                                             </button>
                                                         </div>
@@ -87,7 +96,9 @@ class Config extends Component {
                             </div>
                         </div>
                     </div>
-
+                    <AddConfig/>
+                    <EditConfig/>
+                    <DeleteConfig/>
                 </div>
             </div>
         );

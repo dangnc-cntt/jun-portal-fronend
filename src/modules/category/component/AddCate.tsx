@@ -3,7 +3,6 @@ import {observer} from "mobx-react";
 import {categoryStore} from "../CategoryStore";
 import {observable} from "mobx";
 import {storage} from "../../../common/firebase/firebase";
-import {productStore} from "../../products/ProductStore";
 
 
 @observer

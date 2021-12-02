@@ -15,7 +15,7 @@ class ConfigService{
         return postRequest(`/v1/portal/config`, data);
     }
 
-    public editConfig( data: any): Promise<IApiResponse> {
+    public editConfig(data: any): Promise<IApiResponse> {
         return putRequest(`/v1/portal/config`, data);
     }
 
