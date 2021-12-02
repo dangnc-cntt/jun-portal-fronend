@@ -104,7 +104,7 @@ class AddExport extends Component {
                             </div>
                             <div className="d-flex align-items-center mb-4">
                                 <div className="w-50">
-                                    <label className="w-100 mr-4">Payment online</label>
+                                    <label className="w-100 mr-4">Payment</label>
                                     {exportStore.dataRequest.isOnline ? <i className="fad fa-toggle-on text-success" onClick={() => exportStore.dataRequest.isOnline = false} style={{fontSize: 32}}/> :
                                         <i className="fad fa-toggle-off text-secondary" onClick={() => exportStore.dataRequest.isOnline = true} style={{fontSize: 32}}/>}
                                 </div>
