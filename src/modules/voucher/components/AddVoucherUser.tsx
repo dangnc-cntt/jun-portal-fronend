@@ -80,7 +80,7 @@ class AddVoucherUser extends Component {
                         <div className="modal-footer border-top-0 pt-0">
                             <button type="button" className="btn" data-dismiss="modal">Cancel</button>
                             <button type="button" onClick={() => voucherStore.addVoucherUser()}
-                                    className="btn btn-info">Create
+                                    className="btn btn-info">Add
                             </button>
                         </div>
                     </div>
