@@ -163,7 +163,7 @@ class SideBar extends Component {
         },
         {
             id: 0,
-            role: "USER",
+            role: "CASHIER",
             menu: [
                 {
                     "id": 0,
@@ -171,6 +171,11 @@ class SideBar extends Component {
                     "icon": "fas fa-user-friends",
                     "rootMenu": ['/profile'],
                     "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "DashBoard",
+                            "link": '/dashboard'
+                        },
                         {
                             "id": 0,
                             "name": "Profile",
@@ -193,9 +198,118 @@ class SideBar extends Component {
                 },
                 {
                     "id": 0,
+                    "name": "Voucher",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/voucher'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Voucher",
+                            "link": '/voucher'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
+                    "name": "Order",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/order'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Order",
+                            "link": '/order'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
+                    "name": "Review",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/review'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Review",
+                            "link": '/review'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
                     "name": "Product",
                     "icon": "fas fa-user-friends",
                     "rootMenu": ['/product/category', '/product/color', '/product/size', '/product/export','/products'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Color",
+                            "link": '/product/color'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Size",
+                            "link": '/product/size'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Category",
+                            "link": '/product/category'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Product",
+                            "link": '/products'
+                        }
+                    ]
+                },
+            ]
+        },
+        {
+            id: 0,
+            role: "WAREHOUSE",
+            menu: [
+                {
+                    "id": 0,
+                    "name": "Home",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/profile'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Inventory Statistic",
+                            "link": '/inventory-statistic'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Profile",
+                            "link": '/profile'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
+                    "name": "Home",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/profile'],
+                    "subMenu": [
+                        {
+                            "id": 0,
+                            "name": "Inventory Statistic",
+                            "link": '/inventory-statistic'
+                        },
+                        {
+                            "id": 0,
+                            "name": "Profile",
+                            "link": '/profile'
+                        }
+                    ]
+                },
+                {
+                    "id": 0,
+                    "name": "Product",
+                    "icon": "fas fa-user-friends",
+                    "rootMenu": ['/product/category', '/product/color', '/product/size','/products'],
                     "subMenu": [
                         {
                             "id": 0,
