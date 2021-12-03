@@ -68,6 +68,7 @@ class ExportStore{
         }
         if(data.isOnline){
             data['orderId'] = this.dataRequest.orderId
+            delete data['products']
         }
 
         this.isLoading = true;

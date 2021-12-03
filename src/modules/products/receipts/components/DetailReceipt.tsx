@@ -44,17 +44,15 @@ class DetailReceipt extends Component<IProps, any> {
                                                    <th><strong>Id</strong></th>
                                                    <th><strong>Code</strong></th>
                                                    <th><strong>Name</strong></th>
-                                                   <th><strong>CostPrice</strong></th>
                                                    <th><strong>Options</strong></th>
                                                </tr>
                                                </thead>
                                                <tbody>
                                                {receiptStore.receiptDetail.products.map((item: any, i: number) => (
                                                    <tr key={i}>
-                                                       <td width="20%">{item.id}</td>
-                                                       <td width="20%">{item.code}</td>
-                                                       <td width="20%">{item.name}</td>
-                                                       <td width="20%">{number_format(item.cost_price)}đ</td>
+                                                       <td width="25%">{item.id}</td>
+                                                       <td width="25%">{item.code}</td>
+                                                       <td width="30%">{item.name}</td>
                                                        <td width="20%">
                                                            <button type="button" className="btn btn-outline-info btn-sm" data-toggle="modal" data-target={`#option_${item.id}`}>Chi tiết</button>
                                                            <div className="modal fade" id={`option_${item.id}`} tabIndex={-1} role="dialog" aria-hidden="true">

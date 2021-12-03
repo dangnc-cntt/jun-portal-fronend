@@ -94,7 +94,7 @@ class Review extends Component {
                                                     <td>{item.createdBy}</td>
                                                     <td>{item.productId}</td>
                                                     <td>{item.content}</td>
-                                                    <td>{item.star} sao</td>
+                                                    <td>{item.star} Star</td>
                                                     <td>{getLocalDateTime(item.createdAt, "dd/mm/yyyy, hh:m_m")}</td>
                                                     <td>{item.state}</td>
                                                     <td className="text-center">

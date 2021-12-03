@@ -118,7 +118,7 @@ class AddExport extends Component {
                                     </select>
                                 </div>}
                             </div>
-                            <div className="form-group mb-2">
+                            {!exportStore.dataRequest.isOnline && <div className="form-group mb-2">
                                 <label>Products</label>
                                 <select className="form-control"
                                         onChange={(e: any) => this.addProduct(e.currentTarget.value)}>
@@ -127,7 +127,7 @@ class AddExport extends Component {
                                         return <option value={item.id} key={i}>{item.name}</option>
                                     })}
                                 </select>
-                            </div>
+                            </div>}
                             <div className="list-product d-flex w-100 flex-wrap">
                                 {exportStore.dataRequest.products && exportStore.dataRequest.products.map((item: any, i: number) => {
                                     return <div className={`product p-2 mb-4 border ${i % 2 == 0 ? "mr-2" : "ml-2"}`} style={{width: `48%`}} key={i}>
